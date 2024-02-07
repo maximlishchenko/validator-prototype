@@ -1,0 +1,56 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix peco: <https://w3id.org/peco#> .
+
+sosa:ObservationShape
+    a sh:NodeShape ;
+    sh:targetClass sosa:Observation ;
+    sh:property [
+        sh:path sosa:hasResult ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "An observation should have at least one result." ;
+    ] ;
+    sh:property [
+        sh:path sosa:hasResult ;
+        sh:class sosa:Result ;
+        sh:severity sh:Warning ;
+        sh:message "The result should be of type sosa:Result" ;
+    ] ;
+    sh:property [
+        sh:path sosa:madeBySensor ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "An observation should be made by exactly one sensor." ;
+    ] ;
+    sh:property [
+        sh:path sosa:hasFeatureOfInterest ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "An observation should have exactly one feature of interest." ;
+    ] ;
+    sh:property [
+        sh:path sosa:hasFeatureOfInterest ;
+        sh:class sosa:FeatureOfInterest ;
+        sh:severity sh:Warning ;
+        sh:message "The feature of interest should be of type sosa:FeatureOfInterest" ;
+    ] .
+
+peco:EmissionGenerationActivityShape
+    a sh:NodeShape ;
+    sh:targetClass peco:EmissionGenerationActivity ;
+    sh:property [
+        sh:path peco:hasEmissionScore ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "An emission generation activity should have exactly one emission score" ;
+    ] ;
+    sh:property [
+        sh:path peco:hasEmissionScore ;
+        sh:class peco:EmissionScore ;
+        sh:severity sh:Warning ;
+        sh:message "An emission score should be of type peco:EmissionScore" ;
+    ] .
