@@ -10,8 +10,8 @@ public class TestController {
     @Autowired
     TestService testService;
 
-    @GetMapping("/test")
+    @GetMapping("/validate")
     public void test() {
-        testService.test();
+        testService.validate();
     }
 }
