@@ -27,20 +27,27 @@ public class TestService {
         if (conforms) {
             System.out.println("No constraints violated");
         } else {
-//            RDFDataMgr.write(System.out, report.getModel(), Lang.TTL);
+            RDFDataMgr.write(System.out, report.getModel(), Lang.TTL);
 
             Model model = report.getModel();
             Resource validationReport = model.listResourcesWithProperty(model.createProperty("http://www.w3.org/ns/shacl#conforms"), model.createTypedLiteral(false)).next();
             StmtIterator results = validationReport.listProperties(model.createProperty("http://www.w3.org/ns/shacl#result"));
 
+            int resultId = 1;
             while (results.hasNext()) {
+                System.out.println("Violation " + resultId + ":");
                 Resource result = results.next().getResource();
                 Resource focusNode = result.getPropertyResourceValue(model.createProperty("http://www.w3.org/ns/shacl#focusNode"));
-                System.out.println("Focus Node: " + focusNode.toString());
+                Resource sourceShape = result.getPropertyResourceValue(model.createProperty("http://www.w3.org/ns/shacl#sourceShape"));
+                Resource value = result.getPropertyResourceValue(model.createProperty("http://www.w3.org/ns/shacl#value"));
                 RDFNode resultMessageNode = result.getProperty(model.createProperty("http://www.w3.org/ns/shacl#resultMessage")).getObject();
                 String resultMessage = resultMessageNode.asLiteral().getString();
+                System.out.println("Focus Node: " + focusNode.toString());
                 System.out.println("Result Message: " + resultMessage);
+                System.out.println("Source Shape: " + sourceShape.toString());
+                System.out.println("Value that caused the violation: " + value.toString());
                 System.out.println("------------------------");
+                resultId += 1;
             }
         }
     }
