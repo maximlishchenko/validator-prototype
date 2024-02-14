@@ -84,7 +84,35 @@ peco:EmissionCalculationActivityShape
                      sh:qualifiedMinCount   1 ;
                      sh:qualifiedValueShape [ sh:class peco:EmissionCalculationEntity ; ] ;
                      sh:severity            sh:Warning ;
-                     sh:message             "An emission calculation activity should involve at least one peco:EmissionCalculationEntity" ; ] .
+                     sh:message             "An emission calculation activity should involve at least one peco:EmissionCalculationEntity" ; ] ;
+    sh:sparql      [ sh:message  "The units used in peco:EmissionCalculationActivity are different" ;
+                     sh:severity sh:Warning ;
+                     sh:select   """
+                     PREFIX peco: <https://w3id.org/peco#>
+                     PREFIX prov: <http://www.w3.org/ns/prov#>
+                     PREFIX ecfo: <https://w3id.org/ecfo#>
+                     PREFIX qudt: <http://qudt.org/schema/qudt/>
+                     SELECT ?activity ?calculationEntityUnit ?cfUnit
+                     WHERE {
+                        ?activity prov:used ?usedEntities .
+                        {
+                            SELECT ?activity ?calculationEntityUnit ?cfUnit
+                            WHERE {
+                                ?activity prov:used ?calculationEntity, ?cf .
+                                ?calculationEntity a peco:EmissionCalculationEntity ;
+                                        qudt:unit ?calculationEntityUnit .
+                                ?cf a ecfo:EmissionConversionFactor ;
+                                        ecfo:hasSourceUnit ?cfUnit .
+                            }
+                        }
+                        FILTER NOT EXISTS {
+                            ?activity prov:used ?calculationEntity .
+                            ?activity prov:used ?cf .
+                            FILTER(?calculationEntity != ?cf)
+                        }
+                        FILTER(?calculationEntityUnit != ?cfUnit)
+                     }
+              """ ; ] .
 
 peco:EmissionCalculationEntityShape
     a              sh:NodeShape ;
@@ -118,4 +146,23 @@ peco:EmissionCalculationEntityShape
                          FILTER (?other != $this) .
                          ?other a/rdfs:subClassOf* peco:EmissionCalculationEntity .
                      }
-                     """ ] .
+                     """ ; ] .
+
+ecfo:EmissionConversionFactorShape
+    a              sh:NodeShape ;
+    sh:targetClass ecfo:EmissionConversionFactor ;
+    sh:property    [ sh:path     ecfo:hasSourceUnit ;
+                     sh:minCount 1 ;
+                     sh:maxCount 1 ;
+                     sh:severity sh:Warning ;
+                     sh:message  "An emission conversion factor should have exactly 1 source unit" ] ;
+    sh:property    [ sh:path     ecfo:hasTargetUnit ;
+                     sh:minCount 1 ;
+                     sh:maxCount 1 ;
+                     sh:severity sh:Warning ;
+                     sh:message  "An emission conversion factor should have exactly 1 target unit" ] ;
+    sh:property    [ sh:path     ecfo:hasApplicableLocation ;
+                     sh:minCount 1 ;
+                     sh:maxCount 1 ;
+                     sh:severity sh:Warning ;
+                     sh:message  "An emission conversion factor should have exactly 1 applicable location" ] .

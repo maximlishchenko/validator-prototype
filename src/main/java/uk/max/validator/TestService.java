@@ -38,14 +38,16 @@ public class TestService {
                 System.out.println("Violation " + resultId + ":");
                 Resource result = results.next().getResource();
                 Resource focusNode = result.getPropertyResourceValue(model.createProperty("http://www.w3.org/ns/shacl#focusNode"));
-                Resource sourceShape = result.getPropertyResourceValue(model.createProperty("http://www.w3.org/ns/shacl#sourceShape"));
+//                Resource sourceShape = result.getPropertyResourceValue(model.createProperty("http://www.w3.org/ns/shacl#sourceShape"));
                 Resource value = result.getPropertyResourceValue(model.createProperty("http://www.w3.org/ns/shacl#value"));
                 RDFNode resultMessageNode = result.getProperty(model.createProperty("http://www.w3.org/ns/shacl#resultMessage")).getObject();
                 String resultMessage = resultMessageNode.asLiteral().getString();
                 System.out.println("Focus Node: " + focusNode.toString());
                 System.out.println("Result Message: " + resultMessage);
-                System.out.println("Source Shape: " + sourceShape.toString());
-                System.out.println("Value that caused the violation: " + value.toString());
+//                System.out.println("Source Shape: " + sourceShape.toString());
+                if (value != null) {
+                    System.out.println("Value that caused the violation: " + value.toString());
+                }
                 System.out.println("------------------------");
                 resultId += 1;
             }
