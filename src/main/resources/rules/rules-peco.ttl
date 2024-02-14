@@ -1,0 +1,111 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix ecfo: <https://w3id.org/ecfo#> .
+@prefix peco: <https://w3id.org/peco#> .
+
+peco:EmissionGenerationActivityShape
+    a              sh:NodeShape ;
+    sh:targetClass peco:EmissionGenerationActivity ;
+    sh:property    [ sh:path     peco:hasEmissionScore ;
+                     sh:minCount 1 ;
+                     sh:maxCount 1 ;
+                     sh:severity sh:Warning ;
+                     sh:message  "An emission generation activity should have exactly one emission score" ; ] ;
+    sh:property    [ sh:path     peco:hasEmissionScore ;
+                     sh:and      ( [ sh:class peco:EmissionScore ] [ sh:class peco:EmissionCalculationEntity ] ) ;
+                     sh:severity sh:Warning ;
+                     sh:message  "An emission score should be of type peco:EmissionScore and peco:EmissionCalculationEntity" ; ] ;
+    sh:property    [ sh:path     prov:atLocation ;
+                     sh:severity sh:Warning ;
+                     sh:message  "An emission generation activity should have happened at CF's applicable location" ;
+                     sh:sparql   [ sh:select """
+                        PREFIX peco: <https://w3id.org/peco#>
+                        PREFIX prov: <http://www.w3.org/ns/prov#>
+                        PREFIX ecfo: <https://w3id.org/ecfo#>
+                        SELECT ?activityAtLocation ?cfLocation
+                        WHERE {
+                            ?activity a peco:EmissionGenerationActivity ;
+                                     prov:atLocation ?activityAtLocation .
+                            ?cf a ecfo:EmissionConversionFactor ;
+                                              ecfo:hasApplicableLocation ?cfLocation .
+                            FILTER(?activityAtLocation != ?cfLocation)
+                        }
+                    """ ] ] .
+
+peco:EmissionCalculationActivityShape
+    a              sh:NodeShape ;
+    sh:targetClass peco:EmissionCalculationActivity ;
+    sh:property    [ sh:path     prov:used ;
+                     sh:minCount 2 ;
+                     sh:severity sh:Warning ;
+                     sh:message  "An emission calculation activity should involve at least 2 things" ; ] ;
+    sh:property    [ sh:path                prov:used ;
+                     sh:qualifiedMinCount   1 ;
+                     sh:qualifiedValueShape [ sh:class peco:EmissionCalculationEntity ; ] ;
+                     sh:severity            sh:Warning ;
+                     sh:message             "An emission calculation activity should involve at least one peco:EmissionCalculationEntity" ; ] ;
+    sh:sparql      [ sh:message  "The units used in peco:EmissionCalculationActivity are different" ;
+                     sh:severity sh:Warning ;
+                     sh:select   """
+                     PREFIX peco: <https://w3id.org/peco#>
+                     PREFIX prov: <http://www.w3.org/ns/prov#>
+                     PREFIX ecfo: <https://w3id.org/ecfo#>
+                     PREFIX qudt: <http://qudt.org/schema/qudt/>
+                     SELECT ?activity ?calculationEntityUnit ?cfUnit
+                     WHERE {
+                        ?activity prov:used ?usedEntities .
+                        {
+                            SELECT ?activity ?calculationEntityUnit ?cfUnit
+                            WHERE {
+                                ?activity prov:used ?calculationEntity, ?cf .
+                                ?calculationEntity a peco:EmissionCalculationEntity ;
+                                        qudt:unit ?calculationEntityUnit .
+                                ?cf a ecfo:EmissionConversionFactor ;
+                                        ecfo:hasSourceUnit ?cfUnit .
+                            }
+                        }
+                        FILTER NOT EXISTS {
+                            ?activity prov:used ?calculationEntity .
+                            ?activity prov:used ?cf .
+                            FILTER(?calculationEntity != ?cf)
+                        }
+                        FILTER(?calculationEntityUnit != ?cfUnit)
+                     }
+              """ ; ] .
+
+peco:EmissionCalculationEntityShape
+    a              sh:NodeShape ;
+    sh:targetClass peco:EmissionCalculationEntity ;
+    sh:sparql      [ sh:message "The observed unit is not applicable for the observed quantity kind" ;
+                     sh:select  """
+                     PREFIX  qudt: <http://qudt.org/schema/qudt/>
+                     PREFIX peco: <https://w3id.org/peco#>
+                     SELECT ?unit
+                     WHERE {
+                         ?entity qudt:hasQuantityKind ?quantityKind ;
+                                 qudt:unit ?unit .
+                         ?quantityKind qudt:applicableUnit ?applicableUnit .
+                         ?applicableUnit qudt:unit ?unit .
+                     }
+                    """ ; ] ;
+    sh:property    [ sh:path     prov:wasGeneratedBy ;
+                     sh:class    peco:EmissionCalculationActivity ;
+                     sh:severity sh:Warning ;
+                     sh:message  "An emission calculation entity must have been generated by peco:EmissionCalculationActivity" ; ] ;
+    sh:sparql      [ sh:severity sh:Warning ;
+                     sh:message  "An emission calculation entity must have been generated by a unique activity." ;
+                     sh:select   """
+                     PREFIX peco: <https://w3id.org/peco#>
+                     PREFIX prov: <http://www.w3.org/ns/prov#>
+                     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                     SELECT DISTINCT $this ?value ?other
+                     WHERE {
+                         $this prov:wasGeneratedBy ?value .
+                         ?other prov:wasGeneratedBy ?value .
+                         FILTER (?other != $this) .
+                         ?other a/rdfs:subClassOf* peco:EmissionCalculationEntity .
+                     }
+                     """ ; ] .
