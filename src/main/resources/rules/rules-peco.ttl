@@ -81,7 +81,7 @@ peco:EmissionCalculationEntityShape
     sh:targetClass peco:EmissionCalculationEntity ;
     sh:sparql      [ sh:message "The observed unit is not applicable for the observed quantity kind" ;
                      sh:select  """
-                     PREFIX  qudt: <http://qudt.org/schema/qudt/>
+                     PREFIX qudt: <http://qudt.org/schema/qudt/>
                      PREFIX peco: <https://w3id.org/peco#>
                      SELECT ?unit
                      WHERE {
@@ -109,3 +109,22 @@ peco:EmissionCalculationEntityShape
                          ?other a/rdfs:subClassOf* peco:EmissionCalculationEntity .
                      }
                      """ ; ] .
+
+peco:EmissionScoreShape
+    a              sh:NodeShape ;
+    sh:targetClass peco:EmissionScore ;
+    sh:sparql      [ sh:severity sh:Warning ;
+                     sh:message  "The quantity kind of the emission score is not compatible with the CF's target chemical compound" ;
+                     sh:select   """
+                     PREFIX peco: <https://w3id.org/peco#>
+                     PREFIX qudt: <http://qudt.org/schema/qudt/>
+                     PREFIX ecfo: <https://w3id.org/ecfo#>
+                     SELECT ?scoreQuantityKind ?cfEmissionTarget
+                     WHERE {
+                        ?emissionScore a peco:EmissionScore ;
+                                qudt:hasQuantityKind ?scoreQuantityKind .
+                        ?cf a ecfo:EmissionConversionFactor ;
+                                ecfo:hasEmissionTarget ?cfEmissionTarget .
+                        FILTER(?scoreQuantityKind != ?cfEmissionTarget)
+                     }
+                     """ ] .
