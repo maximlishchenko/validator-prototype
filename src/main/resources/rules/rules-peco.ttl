@@ -127,4 +127,19 @@ peco:EmissionScoreShape
                                 ecfo:hasEmissionTarget ?cfEmissionTarget .
                         FILTER(?scoreQuantityKind != ?cfEmissionTarget)
                      }
-                     """ ] .
+                     """ ] ;
+    sh:sparql      [ sh:severity sh:Warning ;
+                     sh:message  "The units of the emission score are not compatible with the CF's target units" ;
+                     sh:select   """
+                     PREFIX peco: <https://w3id.org/peco#>
+                     PREFIX qudt: <http://qudt.org/schema/qudt/>
+                     PREFIX ecfo: <https://w3id.org/ecfo#>
+                     SELECT ?scoreUnit ?cfUnit
+                     WHERE {
+                        ?emissionScore a peco:EmissionScore ;
+                                qudt:unit ?scoreUnit .
+                        ?cf a ecfo:EmissionConversionFactor ;
+                                ecfo:hasTargetUnit ?cfUnit .
+                        FILTER(?scoreUnit != ?cfUnit)
+                     }
+                   """ ; ] .
