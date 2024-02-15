@@ -260,7 +260,7 @@
                 "@value":1.65,
                 "@type":"xsd:float"
             },
-            "unit":"http://www.wikidata.org/entity/Q18209",
+            "unit":"http://www.wikidata.org/entity/Q182098",
             "hasQuantityKind":"http://www.wikidata.org/entity/Q12725",
             "wasGeneratedBy":[
                 "https://github.com/mlco2/impact/provenance/i/bec867c8-e5a1-4014-9408-a83fc67ce28b"
