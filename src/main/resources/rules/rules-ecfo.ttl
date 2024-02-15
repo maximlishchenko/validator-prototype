@@ -37,4 +37,12 @@ ecfo:EmissionConversionFactorShape
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
                      sh:severity sh:Warning ;
-                     sh:message  "An emission conversion factor should have exactly 1 emission target" ; ] .
+                     sh:message  "An emission conversion factor should have exactly 1 emission target" ; ] ;
+    sh:property    [ sh:path     ecfo:hasEmissionTarget ;
+                     sh:class    qudt:QuantityKind ;
+                     sh:severity sh:Warning ;
+                     sh:message  "Emission conversion factor's emission target should be of type qudt:QuantityKind" ; ] ;
+    sh:property    [ sh:path     ecfo:hasEmissionSource ;
+                     sh:class    qudt:QuantityKind ;
+                     sh:severity sh:Warning ;
+                     sh:message  "Emission conversion factor's emission source should be of type qudt:QuantityKind" ; ] .
