@@ -18,22 +18,27 @@ peco:EmissionGenerationActivityShape
                      sh:and      ( [ sh:class peco:EmissionScore ] [ sh:class peco:EmissionCalculationEntity ] ) ;
                      sh:severity sh:Warning ;
                      sh:message  "An emission score should be of type peco:EmissionScore and peco:EmissionCalculationEntity" ; ] ;
-    sh:property    [ sh:path     prov:atLocation ;
-                     sh:severity sh:Warning ;
+    sh:sparql      [ sh:severity sh:Warning ;
                      sh:message  "An emission generation activity should have happened at CF's applicable location" ;
-                     sh:sparql   [ sh:select """
-                        PREFIX peco: <https://w3id.org/peco#>
-                        PREFIX prov: <http://www.w3.org/ns/prov#>
-                        PREFIX ecfo: <https://w3id.org/ecfo#>
-                        SELECT ?activityAtLocation ?cfLocation
-                        WHERE {
-                            ?activity a peco:EmissionGenerationActivity ;
-                                     prov:atLocation ?activityAtLocation .
-                            ?cf a ecfo:EmissionConversionFactor ;
-                                              ecfo:hasApplicableLocation ?cfLocation .
-                            FILTER(?activityAtLocation != ?cfLocation)
+                     sh:select   """
+                     PREFIX peco: <https://w3id.org/peco#>
+                     PREFIX prov: <http://www.w3.org/ns/prov#>
+                     PREFIX ecfo: <https://w3id.org/ecfo#>
+                     PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+                     SELECT ?ehContainsLocation ?cfLocation ?activityAtLocation
+                     WHERE {
+                        ?activity a peco:EmissionGenerationActivity ;
+                                prov:atLocation ?activityAtLocation .
+                        OPTIONAL {
+                            ?activityAtLocation a geo:SpatialObject ;
+                                    geo:ehContains ?ehContainsLocation .
                         }
-                    """ ] ] .
+                        ?cf a ecfo:EmissionConversionFactor ;
+                                ecfo:hasApplicableLocation ?cfLocation .
+                        BIND(IF(BOUND(?ehContainsLocation), ?ehContainsLocation, ?activityAtLocation) AS ?locationToCheck)
+                        FILTER(?locationToCheck != ?cfLocation)
+                     }
+                     """ ] .
 
 peco:EmissionCalculationActivityShape
     a              sh:NodeShape ;
