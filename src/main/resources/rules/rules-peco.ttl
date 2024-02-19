@@ -17,9 +17,9 @@ peco:EmissionGenerationActivityShape
     sh:property    [ sh:path     peco:hasEmissionScore ;
                      sh:and      ( [ sh:class peco:EmissionScore ] [ sh:class peco:EmissionCalculationEntity ] ) ;
                      sh:severity sh:Violation ;
-                     sh:message  "An emission score should be of type peco:EmissionScore and peco:EmissionCalculationEntity" ; ] ;
+                     sh:message  "The emission score of emission generation activity should be of type peco:EmissionScore and peco:EmissionCalculationEntity" ; ] ;
     sh:sparql      [ sh:severity sh:Violation ;
-                     sh:message  "An emission generation activity should have happened at CF's applicable location" ;
+                     sh:message  "An emission generation activity should have happened at conversion factor's applicable location" ;
                      sh:select   """
                      PREFIX peco: <https://w3id.org/peco#>
                      PREFIX prov: <http://www.w3.org/ns/prov#>
@@ -56,18 +56,6 @@ peco:EmissionCalculationActivityShape
 peco:EmissionCalculationEntityShape
     a              sh:NodeShape ;
     sh:targetClass peco:EmissionCalculationEntity ;
-    sh:sparql      [ sh:message "The observed unit is not applicable for the observed quantity kind" ;
-                     sh:select  """
-                     PREFIX qudt: <http://qudt.org/schema/qudt/>
-                     PREFIX peco: <https://w3id.org/peco#>
-                     SELECT ?unit
-                     WHERE {
-                         ?entity qudt:hasQuantityKind ?quantityKind ;
-                                 qudt:unit ?unit .
-                         ?quantityKind qudt:applicableUnit ?applicableUnit .
-                         ?applicableUnit qudt:unit ?unit .
-                     }
-                    """ ; ] ;
     sh:property    [ sh:path     prov:wasGeneratedBy ;
                      sh:class    peco:EmissionCalculationActivity ;
                      sh:severity sh:Violation ;
@@ -91,7 +79,7 @@ peco:EmissionScoreShape
     a              sh:NodeShape ;
     sh:targetClass peco:EmissionScore ;
     sh:sparql      [ sh:severity sh:Warning ;
-                     sh:message  "The quantity kind of the emission score is not compatible with the CF's target chemical compound" ;
+                     sh:message  "The quantity kind of the emission score is not compatible with the conversion factor's target chemical compound" ;
                      sh:select   """
                      PREFIX peco: <https://w3id.org/peco#>
                      PREFIX qudt: <http://qudt.org/schema/qudt/>
@@ -106,7 +94,7 @@ peco:EmissionScoreShape
                      }
                      """ ] ;
     sh:sparql      [ sh:severity sh:Warning ;
-                     sh:message  "The units of the emission score are not compatible with the CF's target units" ;
+                     sh:message  "The units of the emission score are not compatible with the conversion factor's target units" ;
                      sh:select   """
                      PREFIX peco: <https://w3id.org/peco#>
                      PREFIX qudt: <http://qudt.org/schema/qudt/>

@@ -14,7 +14,7 @@ ecfo:EmissionConversionFactorShape
     sh:property    [ sh:path     ecfo:hasSourceUnit ;
                      sh:class    qudt:Unit ;
                      sh:severity sh:Violation ;
-                     sh:message  "Emission conversion factor's source units are not of type qudt:Unit" ; ] ;
+                     sh:message  "An emission conversion factor's source units are not of type qudt:Unit" ; ] ;
     sh:property    [ sh:path     ecfo:hasTargetUnit ;
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
@@ -23,7 +23,7 @@ ecfo:EmissionConversionFactorShape
     sh:property    [ sh:path     ecfo:hasTargetUnit ;
                      sh:class    qudt:Unit ;
                      sh:severity sh:Violation ;
-                     sh:message  "Emission conversion factor's target units are not of type qudt:Unit" ; ] ;
+                     sh:message  "An emission conversion factor's target units are not of type qudt:Unit" ; ] ;
     sh:property    [ sh:path     ecfo:hasApplicableLocation ;
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
@@ -32,7 +32,7 @@ ecfo:EmissionConversionFactorShape
     sh:property    [ sh:path     peco:scope ;
                      sh:in       ( ecfo:Scope1 ecfo:Scope2 ecfo:Scope3 ) ;
                      sh:severity sh:Violation ;
-                     sh:message  "Emission Conversion Factor's scope should be Scope1, Scope2 or Scope3" ; ] ;
+                     sh:message  "An emission conversion factor's scope should be Scope1, Scope2 or Scope3" ; ] ;
     sh:property    [ sh:path     ecfo:hasEmissionTarget ;
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
@@ -42,8 +42,8 @@ ecfo:EmissionConversionFactorShape
                      sh:class    qudt:QuantityKind ;
                      sh:severity sh:Violation ;
                      sh:message  "Emission conversion factor's emission target should be of type qudt:QuantityKind" ; ] ;
-    sh:sparql      [ sh:message  "A calculation activity that involved a CF used entities with non-matching units" ;
-                     sh:severity sh:Violation ;
+    sh:sparql      [ sh:severity sh:Violation ;
+                     sh:message  "An emission calculation activity that involved a CF used entities with non-matching units" ;
                      sh:select   """
                      PREFIX peco: <https://w3id.org/peco#>
                      PREFIX prov: <http://www.w3.org/ns/prov#>

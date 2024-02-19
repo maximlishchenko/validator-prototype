@@ -12,7 +12,7 @@ sosa:ObservationShape
     sh:property    [ sh:path     sosa:hasResult ;
                      sh:or       ( [ sh:class sosa:Result ] [ sh:class sosa:Sample ] ) ;
                      sh:severity sh:Violation ;
-                     sh:message  "The result should be of type sosa:Result or sosa:Sample" ; ] ;
+                     sh:message  "An observation's result should be of type sosa:Result or sosa:Sample" ; ] ;
     sh:property    [ sh:path     sosa:madeBySensor ;
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
@@ -31,8 +31,8 @@ sosa:ObservationShape
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
                      sh:severity sh:Violation ;
-                     sh:message  "An emission generation activity should be linked to one sosa:Observation" ; ] ;
+                     sh:message  "An emission generation activity should be linked to exactly one sosa:Observation" ; ] ;
     sh:property    [ sh:path     peco:inEmissionActivityContext ;
                      sh:class    peco:EmissionGenerationActivity ;
                      sh:severity sh:Violation ;
-                     sh:message  "A property linking an activity to an observation should be of type peco:EmissionGenerationActivity" ; ] .
+                     sh:message  "A property linking an observation to an emission generation activity should be of type peco:EmissionGenerationActivity" ; ] .
