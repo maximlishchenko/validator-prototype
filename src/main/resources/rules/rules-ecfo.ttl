@@ -59,4 +59,18 @@ ecfo:EmissionConversionFactorShape
                                 qudt:unit ?entityUnit .
                         FILTER(?cfUnit != ?entityUnit)
                      }
+                     """ ] ;
+    sh:sparql      [ sh:severity sh:Warning ;
+                     sh:message  "An emission conversion factor used in the calculation is out of date" ;
+                     sh:select   """
+                     PREFIX ecfo: <https://w3id.org/ecfo#>
+                     PREFIX time: <http://www.w3.org/2006/time#>
+                     SELECT ?cf
+                     WHERE {
+                        ?cf a ecfo:EmissionConversionFactor ;
+                                ecfo:hasApplicablePeriod ?period .
+                        ?period time:hasEnd ?end .
+                        ?end time:inXSDDate ?endValue .
+                        FILTER(?endValue < now())
+                     }
                      """ ] .
