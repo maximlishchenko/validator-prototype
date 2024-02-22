@@ -52,7 +52,7 @@ peco:EmissionCalculationActivityShape
 peco:EmissionScoreShape
     a              sh:NodeShape ;
     sh:targetClass peco:EmissionScore ;
-    sh:sparql      [ sh:severity sh:Warning ;
+    sh:sparql      [ sh:severity sh:Violation ;
                      sh:message  "The quantity kind of the emission score is not compatible with the conversion factor's target chemical compound" ;
                      sh:select   """
                      PREFIX peco: <https://w3id.org/peco#>
@@ -67,7 +67,7 @@ peco:EmissionScoreShape
                         FILTER(?scoreQuantityKind != ?cfEmissionTarget)
                      }
                      """ ] ;
-    sh:sparql      [ sh:severity sh:Warning ;
+    sh:sparql      [ sh:severity sh:Violation ;
                      sh:message  "The units of the emission score are not compatible with the conversion factor's target units" ;
                      sh:select   """
                      PREFIX peco: <https://w3id.org/peco#>
