@@ -10,18 +10,18 @@ public class Controller {
     @Autowired
     Service service;
 
-    @GetMapping("/validate-sosa")
-    public void validateSosa() {
-        service.validateSosa();
+    @GetMapping("/validate-cardinality")
+    public void validateCardinality() {
+        service.validateCardinality();
     }
 
-    @GetMapping("/validate-peco")
-    public void validatePeco() {
-        service.validatePeco();
+    @GetMapping("/validate-type")
+    public void validateType() {
+        service.validateType();
     }
 
-    @GetMapping("/validate-ecfo")
-    public void validateEcfo() {
-        service.validateEcfo();
+    @GetMapping("/validate-sparql")
+    public void validateSparql() {
+        service.validateSparql();
     }
 }
