@@ -50,3 +50,16 @@ sosa:ObservationShape
                      sh:class    peco:EmissionGenerationActivity ;
                      sh:severity sh:Violation ;
                      sh:message  "A property linking an observation to an emission generation activity should be of type peco:EmissionGenerationActivity" ; ] .
+
+#QUDT constraints
+qudt:QuantityShape
+    a              sh:NodeShape ;
+    sh:targetClass qudt:Quantity ;
+    sh:property    [ sh:path     qudt:unit ;
+                     sh:or       ( [ sh:class qudt:Unit ] [ sh:class qudt:unit ] ) ;
+                     sh:severity sh:Violation ;
+                     sh:message  "Quantity's units should be of type qudt:Unit" ; ] ;
+    sh:property    [ sh:path     qudt:hasQuantityKind ;
+                     sh:class    qudt:QuantityKind ;
+                     sh:severity sh:Violation ;
+                     sh:message  "Quantity's quantity kind should be of type qudt:QuantityKind" ; ] .
