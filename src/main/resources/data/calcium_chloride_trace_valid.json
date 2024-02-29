@@ -151,7 +151,7 @@
     },
     "@graph":[
         {
-            "@id":"https://water.com/provenance/Observation/obs1",
+            "@id":"https://cacl2.com/provenance/Observation/obs1",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Activity",
@@ -161,48 +161,72 @@
                 "https://www.wikidata.org/entity/Q5"
             ],
             "hasFeatureOfInterest":[
-                "https://water.com/provenance/FeatureOfInterest/foi1"
+                "https://cacl2.com/provenance/FeatureOfInterest/foi1"
             ],
             "madeBySensor":"https://www.wikidata.org/entity/Q5",
-            "label":"Observe the amount of water used per litre of beer",
-            "inEmissionActivityContext":"https://water.com/provenance/EmissionGenerationActivity/emission-generation-activity",
+            "label":"Observe the amount of calcium chloride usage in brewing process",
+            "inEmissionActivityContext":"https://cacl2.com/provenance/EmissionGenerationActivity/ega1",
             "hasResult":[
-                "https://water.com/provenance/CalculationEntity/ObservationResult/obsresult1"
+                "https://cacl2.com/provenance/CalculationEntity/ObservationResult/obsresult1"
             ]
         },
         {
-            "@id":"https://water.com/provenance/FeatureOfInterest/foi1",
+            "@id":"https://cacl2.com/provenance/FeatureOfInterest/foi1",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Entity",
                 "http://www.w3.org/ns/sosa/FeatureOfInterest"
             ],
-            "label":"Water use"
+            "label":"Calcium chloride usage"
         },
         {
-            "@id":"https://water.com/provenance/CalculationEntity/emission-score",
+            "@id":"https://cacl2.com/provenance/EmissionGenerationActivity/ega1",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://www.w3.org/ns/prov#Activity",
+                "https://w3id.org/peco#EmissionGenerationActivity"
+            ],
+            "hasEmissionScore":[
+                "https://cacl2.com/provenance/CalculationEntity/emission-score"
+            ],
+            "label":"Usage of calcium chloride in brewing process",
+            "atLocation":"https://www.wikidata.org/wiki/Q145"
+        },
+        {
+            "@id":"https://cacl2.com/provenance/CalculationEntity/ObservationResult/obsresult1",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "https://w3id.org/peco#EmissionCalculationEntity",
-                "https://w3id.org/peco#EmissionScore",
-                "http://qudt.org/schema/qudt/Quantity"
+                "http://qudt.org/schema/qudt/Quantity",
+                "http://www.w3.org/ns/sosa/Result"
             ],
-            "label":"Emission Score",
+            "label":"Grams of calcium chloride used per litre of brewing water",
             "qudt_value":{
-                "@value":0.8821,
+                "@value":0.5,
                 "@type":"xsd:float"
             },
             "unit":"https://www.wikidata.org/entity/Q41803",
-            "hasQuantityKind":"http://www.wikidata.org/entity/Q1933140",
-            "wasGeneratedBy":[
-                "https://water.com/provenance/emission-score-calculation"
-            ]
+            "hasQuantityKind":"https://www.wikidata.org/wiki/Q11423"
         },
         {
             "@id":"https://www.wikidata.org/entity/Q41803",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://qudt.org/schema/qudt/Unit"
+            ]
+        },
+        {
+            "@id":"https://www.wikidata.org/wiki/Q11423",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://qudt.org/schema/qudt/QuantityKind"
+            ]
+        },
+        {
+            "@id":"https://www.wikidata.org/wiki/Q2356542",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://qudt.org/schema/qudt/QuantityKind"
             ]
         },
         {
@@ -213,25 +237,11 @@
             ]
         },
         {
-            "@id":"https://water.com/provenance/EmissionGenerationActivity/emission-generation-activity",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://www.w3.org/ns/prov#Activity",
-                "https://w3id.org/peco#EmissionGenerationActivity"
-            ],
-            "hasEmissionScore":[
-                "https://water.com/provenance/CalculationEntity/emission-score"
-            ],
-            "label":"Usage of water in brewing process",
-            "atLocation":"https://www.wikidata.org/wiki/Q145"
-        },
-        {
-            "@id":"https://water.com/provenance/CalculationEntity/ObservationResult/obsresult1",
+            "@id":"https://cacl2.com/provenance/CalculationEntity/total-water",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "https://w3id.org/peco#EmissionCalculationEntity",
-                "http://qudt.org/schema/qudt/Quantity",
-                "http://www.w3.org/ns/sosa/Result"
+                "http://qudt.org/schema/qudt/Quantity"
             ],
             "label":"Litres of water used per litre of beer",
             "qudt_value":{
@@ -256,7 +266,22 @@
             ]
         },
         {
-            "@id":"https://water.com/provenance/emission-score-calculation",
+            "@id":"https://cacl2.com/provenance/CalculationEntity/waste-water",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "https://w3id.org/peco#EmissionCalculationEntity",
+                "http://qudt.org/schema/qudt/Quantity"
+            ],
+            "label":"Litres of waste water used per litre of beer",
+            "qudt_value":{
+                "@value":4.29,
+                "@type":"xsd:float"
+            },
+            "unit":"https://www.wikidata.org/wiki/Q11582",
+            "hasQuantityKind":"https://www.wikidata.org/wiki/Q39297"
+        },
+        {
+            "@id":"https://cacl2.com/provenance/calculation-activity1",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Activity",
@@ -265,24 +290,111 @@
             "wasAssociatedWith":[
                 "https://doi.org/10.1016/j.jclepro.2023.140181"
             ],
-            "label":"Emission Score Calculation",
+            "label":"Subtract waste water from total water usage",
             "used":[
-                "https://water.com/provenance/cf",
-                "https://water.com/provenance/CalculationEntity/ObservationResult/obsresult1"
+                "https://cacl2.com/provenance/CalculationEntity/total-water",
+                "https://cacl2.com/provenance/CalculationEntity/waste-water"
             ]
         },
         {
-            "@id":"https://water.com/provenance/cf",
+            "@id":"https://cacl2.com/provenance/CalculationEntity/entity1",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "https://w3id.org/peco#EmissionCalculationEntity",
+                "http://qudt.org/schema/qudt/Quantity"
+            ],
+            "label":"Water that is relevant to calcium chloride use",
+            "qudt_value":{
+                "@value":1.63,
+                "@type":"xsd:float"
+            },
+            "unit":"https://www.wikidata.org/wiki/Q11582",
+            "hasQuantityKind":"https://www.wikidata.org/wiki/Q39297",
+            "wasGeneratedBy":[
+                "https://cacl2.com/provenance/calculation-activity1"
+            ]
+        },
+        {
+            "@id":"https://cacl2.com/provenance/calculation-activity2",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://www.w3.org/ns/prov#Activity",
+                "https://w3id.org/peco#EmissionCalculationActivity"
+            ],
+            "wasAssociatedWith":[
+                "https://doi.org/10.1016/j.jclepro.2023.140181"
+            ],
+            "label":"Multiply relevant water usage by calcium chloride usage",
+            "used":[
+                "https://cacl2.com/provenance/CalculationEntity/entity1",
+                "https://cacl2.com/provenance/CalculationEntity/ObservationResult/obsresult1"
+            ]
+        },
+        {
+            "@id":"https://cacl2.com/provenance/CalculationEntity/entity2",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "https://w3id.org/peco#EmissionCalculationEntity",
+                "http://qudt.org/schema/qudt/Quantity"
+            ],
+            "label":"Calculated calcium chloride usage",
+            "qudt_value":{
+                "@value":0.815,
+                "@type":"xsd:float"
+            },
+            "unit":"https://www.wikidata.org/entity/Q41803",
+            "hasQuantityKind":"https://www.wikidata.org/wiki/Q11423",
+            "wasGeneratedBy":[
+                "https://cacl2.com/provenance/calculation-activity2"
+            ]
+        },
+        {
+            "@id":"https://cacl2.com/provenance/emission-score-calculation",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://www.w3.org/ns/prov#Activity",
+                "https://w3id.org/peco#EmissionCalculationActivity"
+            ],
+            "wasAssociatedWith":[
+                "https://doi.org/10.1016/j.jclepro.2023.140181"
+            ],
+            "label":"Apply calcium chloride conversion factor",
+            "used":[
+                "https://cacl2.com/provenance/CalculationEntity/entity2",
+                "https://cacl2.com/provenance/cf"
+            ]
+        },
+        {
+            "@id":"https://cacl2.com/provenance/CalculationEntity/emission-score",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "https://w3id.org/peco#EmissionCalculationEntity",
+                "https://w3id.org/peco#EmissionScore",
+                "http://qudt.org/schema/qudt/Quantity"
+            ],
+            "label":"Emission Score",
+            "qudt_value":{
+                "@value":0.7254,
+                "@type":"xsd:float"
+            },
+            "unit":"https://www.wikidata.org/entity/Q41803",
+            "hasQuantityKind":"http://www.wikidata.org/entity/Q1933140",
+            "wasGeneratedBy":[
+                "https://cacl2.com/provenance/emission-score-calculation"
+            ]
+        },
+        {
+            "@id":"https://cacl2.com/provenance/cf",
             "@type":"ecfo:EmissionConversionFactor",
-            "publisher":"https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2022",
-            "value":"0.149",
-            "hasApplicableLocation":"https://www.wikidata.org/wiki/Q145",
-            "hasEmissionSource":"https://www.wikidata.org/wiki/Q1061108",
+            "publisher":"https://legacy.winnipeg.ca/finance/findata/matmgt/documents/2012/682-2012/682-2012_appendix_h-wstp_south_end_plant_process_selection_report/appendix%207.pdf",
+            "value":"0.89",
+            "hasApplicableLocation":"https://www.wikidata.org/wiki/Q16",
+            "hasEmissionSource":"https://www.wikidata.org/wiki/Q2356542",
             "hasEmissionTarget":"http://www.wikidata.org/entity/Q1933140",
-            "hasScope":"ecfo:Scope3",
-            "hasSourceUnit":"https://www.wikidata.org/wiki/Q11582",
+            "hasScope":"ecfo:Scope2",
+            "hasSourceUnit":"https://www.wikidata.org/entity/Q41803",
             "hasTag":[
-                "https://www.wikidata.org/wiki/Q1061108"
+                "http://www.wikidata.org/entity/Q12725"
             ],
             "hasTargetUnit":"https://www.wikidata.org/entity/Q41803"
         }
