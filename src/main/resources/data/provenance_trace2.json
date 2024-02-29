@@ -147,7 +147,12 @@
         "rdf":"http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         "peco":"https://w3id.org/peco#",
         "time":"http://www.w3.org/2006/time#",
-        "prov":"http://www.w3.org/ns/prov#"
+        "prov":"http://www.w3.org/ns/prov#",
+        "geo":"http://www.opengis.net/ont/geosparql#",
+        "ehContains":{
+            "@id":"http://www.opengis.net/ont/geosparql#ehContains",
+            "@type":"@id"
+        }
     },
     "@graph":[
         {
@@ -344,6 +349,14 @@
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://qudt.org/schema/qudt/QuantityKind"
             ]
+        },
+        {
+            "@id":"https://w3id.org/ecfkg/i/mlco2/gcp/europe-west2",
+            "@type":[
+                "http://www.w3.org/ns/prov#Location",
+                "http://www.opengis.net/ont/geosparql#SpatialObject"
+            ],
+            "ehContains":"http://www.wikidata.org/entity/Q145"
         },
         {
             "@id":"https://w3id.org/ecfkg/i/UK/BEIS/2022/CF_2127",

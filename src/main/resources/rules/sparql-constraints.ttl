@@ -1,6 +1,7 @@
 @prefix ecfo: <https://w3id.org/ecfo#> .
 @prefix sh:   <http://www.w3.org/ns/shacl#> .
 @prefix peco: <https://w3id.org/peco#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 
 #ECFO constraints
 ecfo:EmissionConversionFactorShape
@@ -24,9 +25,10 @@ ecfo:EmissionConversionFactorShape
                         FILTER(?cfUnit != ?entityUnit)
                      }
                      """ ] ;
-    sh:sparql      [ sh:severity sh:Warning ;
+    sh:property    [ sh:path     ecfo:hasApplicablePeriod ;
+                     sh:severity sh:Warning ;
                      sh:message  "An emission conversion factor used in the calculation is out of date" ;
-                     sh:select   """
+                     sh:sparql   [ sh:select """
                      PREFIX ecfo: <https://w3id.org/ecfo#>
                      PREFIX time: <http://www.w3.org/2006/time#>
                      SELECT ?cf
@@ -37,15 +39,16 @@ ecfo:EmissionConversionFactorShape
                         ?end time:inXSDDate ?endValue .
                         FILTER(?endValue < now())
                      }
-                     """ ] .
+                     """ ] ] .
 
 #PECO constraints
 peco:EmissionGenerationActivityShape
     a              sh:NodeShape ;
     sh:targetClass peco:EmissionGenerationActivity ;
-    sh:sparql      [ sh:severity sh:Warning ;
+    sh:property    [ sh:path     prov:atLocation ;
+                     sh:severity sh:Warning ;
                      sh:message  "An emission generation activity should have happened at conversion factor's applicable location" ;
-                     sh:select   """
+                     sh:sparql   [ sh:select """
                      PREFIX peco: <https://w3id.org/peco#>
                      PREFIX prov: <http://www.w3.org/ns/prov#>
                      PREFIX ecfo: <https://w3id.org/ecfo#>
@@ -63,7 +66,7 @@ peco:EmissionGenerationActivityShape
                         BIND(IF(BOUND(?ehContainsLocation), ?ehContainsLocation, ?activityAtLocation) AS ?locationToCheck)
                         FILTER(?locationToCheck != ?cfLocation)
                      }
-                     """ ] .
+                     """ ] ] .
 
 peco:EmissionScoreShape
     a              sh:NodeShape ;

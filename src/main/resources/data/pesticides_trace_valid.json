@@ -184,9 +184,23 @@
                 "@type":"xsd:float"
             },
             "unit":"https://www.wikidata.org/wiki/Q41803",
-            "hasQuantityKind":"http://www.wikidata.org/entity/Q1933140",
+            "hasQuantityKind":"https://www.wikidata.org/wiki/Q1933140",
             "wasGeneratedBy":[
                 "https://pesticides.com/provenance/CalculationActivity/emission-score-calculation"
+            ]
+        },
+        {
+            "@id":"https://www.wikidata.org/wiki/Q41803",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://qudt.org/schema/qudt/Unit"
+            ]
+        },
+        {
+            "@id":"https://www.wikidata.org/wiki/Q1933140",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://qudt.org/schema/qudt/QuantityKind"
             ]
         },
         {
@@ -241,6 +255,13 @@
                 "@type":"xsd:float"
             },
             "unit":"https://www.wikidata.org/wiki/Q11229"
+        },
+        {
+            "@id":"https://www.wikidata.org/wiki/Q11229",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://qudt.org/schema/qudt/Unit"
+            ]
         },
         {
             "@id":"https://pesticides.com/provenance/CalculationEntity/fertiliser-production",

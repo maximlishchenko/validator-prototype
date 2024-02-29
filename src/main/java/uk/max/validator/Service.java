@@ -13,7 +13,7 @@ public class Service {
 
     public static void validateCardinality() {
         Graph cardinalityRules = RDFDataMgr.loadGraph("./rules/cardinality-constraints.ttl", Lang.TTL);
-        Graph dataGraph = RDFDataMgr.loadGraph("./data/provenance_trace2.json", Lang.JSONLD);
+        Graph dataGraph = RDFDataMgr.loadGraph("data/water_trace_valid.json", Lang.JSONLD);
         Shapes shapes = Shapes.parse(cardinalityRules);
         ValidationReport report = ShaclValidator.get().validate(shapes, dataGraph);
 
@@ -28,7 +28,7 @@ public class Service {
 
     public static void validateType() {
         Graph typeRules = RDFDataMgr.loadGraph("./rules/type-constraints.ttl", Lang.TTL);
-        Graph dataGraph = RDFDataMgr.loadGraph("./data/provenance_trace2.json", Lang.JSONLD);
+        Graph dataGraph = RDFDataMgr.loadGraph("data/water_trace_valid.json", Lang.JSONLD);
         Shapes shapes = Shapes.parse(typeRules);
         ValidationReport report = ShaclValidator.get().validate(shapes, dataGraph);
 
@@ -43,7 +43,7 @@ public class Service {
 
     public static void validateSparql() {
         Graph sparqlRules = RDFDataMgr.loadGraph("./rules/sparql-constraints.ttl", Lang.TTL);
-        Graph dataGraph = RDFDataMgr.loadGraph("./data/provenance_trace2.json", Lang.JSONLD);
+        Graph dataGraph = RDFDataMgr.loadGraph("data/water_trace_valid.json", Lang.JSONLD);
         Shapes shapes = Shapes.parse(sparqlRules);
         ValidationReport report = ShaclValidator.get().validate(shapes, dataGraph);
 
