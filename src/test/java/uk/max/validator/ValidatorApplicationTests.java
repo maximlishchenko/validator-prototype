@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @SpringBootTest
@@ -67,7 +66,7 @@ class ValidatorApplicationTests {
     @Test
     // catch cardinality constraints related to ECFO entities
     public void testValidateECFOCardinalitySMLITrace3() {
-        String res = Service.validateCardinality("smli_trace3_invalid");
+        String res = Service.validateCardinality("smli_trace3_invalid_ecfo_cardinality");
         JsonArray jsonArray = new Gson().fromJson(res, JsonArray.class);
         assertEquals(4, jsonArray.size());
 
@@ -89,5 +88,53 @@ class ValidatorApplicationTests {
         assertEquals(1, pathCount.get("ecfo:hasTargetUnit"));
         assertEquals(1, pathCount.get("ecfo:hasApplicableLocation"));
         assertEquals(1, pathCount.get("ecfo:hasEmissionTarget"));
+    }
+
+    @Test
+    // catch cardinality constraints related to ECFO entities
+    public void testValidatePECOCardinalitySMLITrace3() {
+        String res = Service.validateCardinality("smli_trace3_invalid_peco_cardinality");
+        JsonArray jsonArray = new Gson().fromJson(res, JsonArray.class);
+        assertEquals(3, jsonArray.size());
+
+        Map<String, Integer> pathCount = new HashMap<>();
+
+        for (JsonElement element : jsonArray) {
+            JsonObject jsonObject = element.getAsJsonObject();
+            // keep track of present result paths
+            String resultPath = jsonObject.get("resultPath").getAsString();
+            pathCount.put(resultPath, pathCount.getOrDefault(resultPath, 0) + 1);
+        }
+
+        // check count of resultPath occurrences
+        assertEquals(2, pathCount.get("prov:used"));
+        assertEquals(1, pathCount.get("peco:hasEmissionScore"));
+    }
+
+    @Test
+    // catch cardinality constraints related to ECFO entities
+    public void testValidateSOSACardinalitySMLITrace3() {
+        String res = Service.validateCardinality("smli_trace3_invalid_sosa_cardinality");
+        JsonArray jsonArray = new Gson().fromJson(res, JsonArray.class);
+        assertEquals(4, jsonArray.size());
+
+        Map<String, Integer> pathCount = new HashMap<>();
+
+        for (JsonElement element : jsonArray) {
+            JsonObject jsonObject = element.getAsJsonObject();
+            String focusNode = jsonObject.get("focusNode").getAsString();
+            // check that each validation result focuses the observation
+            assertEquals("https://github.com/mlco2/impact/provenance/i/Observation/8ca5f2a3-4179-4507-adcc-a40aee2cf5b9", focusNode);
+
+            // keep track of present result paths
+            String resultPath = jsonObject.get("resultPath").getAsString();
+            pathCount.put(resultPath, pathCount.getOrDefault(resultPath, 0) + 1);
+        }
+
+        // check that each resultPath occurs once
+        assertEquals(1, pathCount.get("sosa:hasFeatureOfInterest"));
+        assertEquals(1, pathCount.get("sosa:hasResult"));
+        assertEquals(1, pathCount.get("sosa:madeBySensor"));
+        assertEquals(1, pathCount.get("peco:inEmissionActivityContext"));
     }
 }
