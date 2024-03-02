@@ -1,7 +1,10 @@
 package uk.max.validator;
 
+import org.apache.jena.ext.xerces.util.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -10,18 +13,18 @@ public class Controller {
     @Autowired
     Service service;
 
-    @GetMapping("/validate-cardinality")
-    public void validateCardinality() {
-        service.validateCardinality();
+    @PostMapping("/validate-cardinality")
+    public String validateCardinality(@RequestBody String provenanceTraceName) {
+        return service.validateCardinality(provenanceTraceName);
     }
 
-    @GetMapping("/validate-type")
-    public void validateType() {
-        service.validateType();
+    @PostMapping("/validate-type")
+    public String validateType(@RequestBody String provenanceTraceName) {
+        return service.validateType(provenanceTraceName);
     }
 
-    @GetMapping("/validate-sparql")
-    public void validateSparql() {
-        service.validateSparql();
+    @PostMapping("/validate-sparql")
+    public String validateSparql(@RequestBody String provenanceTraceName) {
+        return service.validateSparql(provenanceTraceName);
     }
 }

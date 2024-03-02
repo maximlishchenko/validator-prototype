@@ -3,56 +3,24 @@ package uk.max.validator;
 import org.apache.jena.graph.Graph;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
-import org.apache.jena.shacl.ShaclValidator;
-import org.apache.jena.shacl.Shapes;
-import org.apache.jena.shacl.ValidationReport;
+import uk.max.validator.utils.Utils;
 
 
 @org.springframework.stereotype.Service
 public class Service {
 
-    public static void validateCardinality() {
+    public static String validateCardinality(String provenanceTraceName) {
         Graph cardinalityRules = RDFDataMgr.loadGraph("./rules/cardinality-constraints.ttl", Lang.TTL);
-        Graph dataGraph = RDFDataMgr.loadGraph("data/water_trace_valid.json", Lang.JSONLD);
-        Shapes shapes = Shapes.parse(cardinalityRules);
-        ValidationReport report = ShaclValidator.get().validate(shapes, dataGraph);
-
-        boolean conforms = report.conforms();
-
-        if (conforms) {
-            System.out.println("No constraints violated when checking cardinality constraints");
-        } else {
-            RDFDataMgr.write(System.out, report.getModel(), Lang.TTL);
-        }
+        return Utils.validate(provenanceTraceName, cardinalityRules);
     }
 
-    public static void validateType() {
+    public static String validateType(String provenanceTraceName) {
         Graph typeRules = RDFDataMgr.loadGraph("./rules/type-constraints.ttl", Lang.TTL);
-        Graph dataGraph = RDFDataMgr.loadGraph("data/water_trace_valid.json", Lang.JSONLD);
-        Shapes shapes = Shapes.parse(typeRules);
-        ValidationReport report = ShaclValidator.get().validate(shapes, dataGraph);
-
-        boolean conforms = report.conforms();
-
-        if (conforms) {
-            System.out.println("No constraints violated when checking type constraints");
-        } else {
-            RDFDataMgr.write(System.out, report.getModel(), Lang.TTL);
-        }
+        return Utils.validate(provenanceTraceName, typeRules);
     }
 
-    public static void validateSparql() {
+    public static String validateSparql(String provenanceTraceName) {
         Graph sparqlRules = RDFDataMgr.loadGraph("./rules/sparql-constraints.ttl", Lang.TTL);
-        Graph dataGraph = RDFDataMgr.loadGraph("data/water_trace_valid.json", Lang.JSONLD);
-        Shapes shapes = Shapes.parse(sparqlRules);
-        ValidationReport report = ShaclValidator.get().validate(shapes, dataGraph);
-
-        boolean conforms = report.conforms();
-
-        if (conforms) {
-            System.out.println("No constraints violated when checking SPARQL constraints");
-        } else {
-            RDFDataMgr.write(System.out, report.getModel(), Lang.TTL);
-        }
+        return Utils.validate(provenanceTraceName, sparqlRules);
     }
 }
