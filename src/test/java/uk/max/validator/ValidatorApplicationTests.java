@@ -137,4 +137,82 @@ class ValidatorApplicationTests {
         assertEquals(1, pathCount.get("sosa:madeBySensor"));
         assertEquals(1, pathCount.get("peco:inEmissionActivityContext"));
     }
+
+    @Test
+    // catch type constraints related to ECFO entities
+    public void testValidateECFOTypeSMLITrace4() {
+        String res = Service.validateType("smli_trace4_invalid_ecfo_type");
+        JsonArray jsonArray = new Gson().fromJson(res, JsonArray.class);
+        assertEquals(4, jsonArray.size());
+
+        Map<String, Integer> pathCount = new HashMap<>();
+
+        for (JsonElement element : jsonArray) {
+            JsonObject jsonObject = element.getAsJsonObject();
+            String focusNode = jsonObject.get("focusNode").getAsString();
+            // check that each validation result focuses the conversion factor
+            assertEquals("https://w3id.org/ecfkg/i/mlco2/gcp/australia-southeast1/cf", focusNode);
+
+            // keep track of present result paths
+            String resultPath = jsonObject.get("resultPath").getAsString();
+            pathCount.put(resultPath, pathCount.getOrDefault(resultPath, 0) + 1);
+        }
+
+        // check that each resultPath occurs once
+        assertEquals(1, pathCount.get("ecfo:hasSourceUnit"));
+        assertEquals(1, pathCount.get("ecfo:hasTargetUnit"));
+        assertEquals(1, pathCount.get("peco:scope"));
+        assertEquals(1, pathCount.get("ecfo:hasEmissionTarget"));
+    }
+
+    @Test
+    // catch type constraints related to PECO and QUDT entities
+    public void testValidatePECOQUDTTypeSMLITrace4() {
+        String res = Service.validateType("smli_trace4_invalid_peco_qudt_type");
+        JsonArray jsonArray = new Gson().fromJson(res, JsonArray.class);
+        // 1 error was introduced in EmissionScore
+        // In 4 Quantities, 2 errors were introduced in each
+        assertEquals(9, jsonArray.size());
+
+        Map<String, Integer> pathCount = new HashMap<>();
+
+        for (JsonElement element : jsonArray) {
+            JsonObject jsonObject = element.getAsJsonObject();
+
+            // keep track of present result paths
+            String resultPath = jsonObject.get("resultPath").getAsString();
+            pathCount.put(resultPath, pathCount.getOrDefault(resultPath, 0) + 1);
+        }
+
+        assertEquals(4, pathCount.get("qudt:unit"));
+        assertEquals(4, pathCount.get("qudt:hasQuantityKind"));
+        assertEquals(1, pathCount.get("peco:hasEmissionScore"));
+    }
+
+    @Test
+    // catch type constraints related to SOSA entities
+    public void testValidateSOSATypeSMLITrace4() {
+        String res = Service.validateType("smli_trace4_invalid_sosa_type");
+        JsonArray jsonArray = new Gson().fromJson(res, JsonArray.class);
+        // 3 errors were introduced related to sosa:Observation
+        assertEquals(3, jsonArray.size());
+
+        Map<String, Integer> pathCount = new HashMap<>();
+
+        for (JsonElement element : jsonArray) {
+            JsonObject jsonObject = element.getAsJsonObject();
+            String focusNode = jsonObject.get("focusNode").getAsString();
+            // check that each validation result focuses sosa:Observation
+            assertEquals("https://github.com/mlco2/impact/provenance/i/Observation/9db05d79-d4c0-41b6-afd2-976c2587623d", focusNode);
+
+            // keep track of present result paths
+            String resultPath = jsonObject.get("resultPath").getAsString();
+            pathCount.put(resultPath, pathCount.getOrDefault(resultPath, 0) + 1);
+        }
+
+        // check that each resultPath occurs once
+        assertEquals(1, pathCount.get("sosa:hasResult"));
+        assertEquals(1, pathCount.get("sosa:hasFeatureOfInterest"));
+        assertEquals(1, pathCount.get("peco:inEmissionActivityContext"));
+    }
 }
