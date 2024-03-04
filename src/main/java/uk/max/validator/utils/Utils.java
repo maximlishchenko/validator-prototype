@@ -57,7 +57,7 @@ public class Utils {
                     json.get("@id").toString(),
                     json.get("focusNode").toString(),
                     json.get("resultMessage").toString(),
-                    (json.has("resultPath") && !json.get("resultPath").isJsonNull()) ? json.get("resultPath").toString() : "",
+                    (json.has("resultPath") && !json.get("resultPath").isJsonNull()) ? json.get("resultPath").toString() : "\"\"",
                     json.get("resultSeverity").toString()
             );
             responses.add(result);
@@ -73,7 +73,7 @@ public class Utils {
         if (report.conforms()) {
             return "No violations";
         }
-
+        // else ...
         JsonArray validationResults = generateValidationResults(report);
         List<ValidationResult> responses = generateValidationResultObjects(validationResults);
         return ValidationResult.buildJsonResponse(responses);

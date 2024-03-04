@@ -31,6 +31,7 @@ class ValidatorApplicationTests {
         JsonArray jsonArray = new Gson().fromJson(res, JsonArray.class);
         assertEquals(1, jsonArray.size());
         JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+        // expect the CF to be out of date
         assertEquals("https://w3id.org/ecfkg/i/UK/BEIS/2022/CF_2127", jsonObject.get("focusNode").getAsString());
         assertEquals("ecfo:hasApplicablePeriod", jsonObject.get("resultPath").getAsString());
         assertEquals("sh:Warning", jsonObject.get("resultSeverity").getAsString());
@@ -214,5 +215,51 @@ class ValidatorApplicationTests {
         assertEquals(1, pathCount.get("sosa:hasResult"));
         assertEquals(1, pathCount.get("sosa:hasFeatureOfInterest"));
         assertEquals(1, pathCount.get("peco:inEmissionActivityContext"));
+    }
+
+    @Test
+    public void validateInvalidObsResultWaterTrace() {
+        // Introduced an error in observation result's units
+        // expect to have no cardinality violations
+        String cardinalityRes = Service.validateCardinality("water_trace_invalid_obsresult");
+        assertEquals("No violations", cardinalityRes);
+        String sparqlRes = Service.validateSparql("water_trace_invalid_obsresult");
+        JsonArray sparqlViolationsArray = new Gson().fromJson(sparqlRes, JsonArray.class);
+        assertEquals(1, sparqlViolationsArray.size());
+        JsonObject jsonObject = sparqlViolationsArray.get(0).getAsJsonObject();
+        // catch errors focusing the conversion factor
+        assertEquals("https://water.com/provenance/cf", jsonObject.get("focusNode").getAsString());
+        assertEquals("An emission calculation activity that involved a CF used entities with non-matching units", jsonObject.get("resultMessage").getAsString());
+        String typeRes = Service.validateType("water_trace_invalid_obsresult");
+        JsonArray typeViolationsArray = new Gson().fromJson(typeRes, JsonArray.class);
+        assertEquals(1, typeViolationsArray.size());
+        jsonObject = typeViolationsArray.get(0).getAsJsonObject();
+        // catch errors focusing the observation result
+        assertEquals("https://water.com/provenance/CalculationEntity/ObservationResult/obsresult1", jsonObject.get("focusNode").getAsString());
+        assertEquals("Quantity's units should be of type qudt:Unit", jsonObject.get("resultMessage").getAsString());
+        assertEquals("qudt:unit", jsonObject.get("resultPath").getAsString());
+    }
+
+    @Test
+    public void validateInvalidEmissionScoreWaterTrace() {
+        // Introduced an error in an Emission score's quantity kind
+        // expect to have no cardinality violations
+        String cardinalityRes = Service.validateCardinality("water_trace_invalid_emissionscore");
+        assertEquals("No violations", cardinalityRes);
+        String sparqlRes = Service.validateSparql("water_trace_invalid_emissionscore");
+        JsonArray sparqlViolationsArray = new Gson().fromJson(sparqlRes, JsonArray.class);
+        assertEquals(1, sparqlViolationsArray.size());
+        JsonObject jsonObject = sparqlViolationsArray.get(0).getAsJsonObject();
+        // catch errors related to incompatibility of CF and emission score
+        assertEquals("https://water.com/provenance/CalculationEntity/emission-score", jsonObject.get("focusNode").getAsString());
+        assertEquals("The quantity kind of the emission score is not compatible with the conversion factor's target chemical compound", jsonObject.get("resultMessage").getAsString());
+        String typeRes = Service.validateType("water_trace_invalid_emissionscore");
+        JsonArray typeViolationsArray = new Gson().fromJson(typeRes, JsonArray.class);
+        assertEquals(1, typeViolationsArray.size());
+        jsonObject = typeViolationsArray.get(0).getAsJsonObject();
+        // catch error that quantity kind is of inappropriate type
+        assertEquals("https://water.com/provenance/CalculationEntity/emission-score", jsonObject.get("focusNode").getAsString());
+        assertEquals("Quantity's quantity kind should be of type qudt:QuantityKind", jsonObject.get("resultMessage").getAsString());
+        assertEquals("qudt:hasQuantityKind", jsonObject.get("resultPath").getAsString());
     }
 }
