@@ -19,11 +19,11 @@ ecfo:EmissionConversionFactorShape
     sh:property    [ sh:path     peco:scope ;
                      sh:in       ( ecfo:Scope1 ecfo:Scope2 ecfo:Scope3 ) ;
                      sh:severity sh:Violation ;
-                     sh:message  "An emission conversion factor's scope should be Scope1, Scope2 or Scope3" ; ] ;
+                     sh:message  "An emission conversion factor's scope is not Scope1, Scope2 or Scope3" ; ] ;
     sh:property    [ sh:path     ecfo:hasEmissionTarget ;
                      sh:class    qudt:QuantityKind ;
                      sh:severity sh:Violation ;
-                     sh:message  "Emission conversion factor's emission target should be of type qudt:QuantityKind" ; ] .
+                     sh:message  "An emission conversion factor's emission target is not of type qudt:QuantityKind" ; ] .
 
 #PECO constraints
 peco:EmissionGenerationActivityShape
@@ -32,7 +32,7 @@ peco:EmissionGenerationActivityShape
     sh:property    [ sh:path     peco:hasEmissionScore ;
                      sh:and      ( [ sh:class peco:EmissionScore ] [ sh:class peco:EmissionCalculationEntity ] ) ;
                      sh:severity sh:Violation ;
-                     sh:message  "The emission score of an emission generation activity should be of type peco:EmissionScore and peco:EmissionCalculationEntity" ; ] .
+                     sh:message  "The emission score of an emission generation activity is not of type peco:EmissionScore and peco:EmissionCalculationEntity" ; ] .
 
 #SOSA constraints
 sosa:ObservationShape
@@ -41,15 +41,15 @@ sosa:ObservationShape
     sh:property    [ sh:path     sosa:hasResult ;
                      sh:or       ( [ sh:class sosa:Result ] [ sh:class sosa:Sample ] ) ;
                      sh:severity sh:Violation ;
-                     sh:message  "An observation's result should be of type sosa:Result or sosa:Sample" ; ] ;
+                     sh:message  "An observation's result is not of type sosa:Result or sosa:Sample" ; ] ;
     sh:property    [ sh:path     sosa:hasFeatureOfInterest ;
                      sh:class    sosa:FeatureOfInterest ;
                      sh:severity sh:Violation ;
-                     sh:message  "The feature of interest should be of type sosa:FeatureOfInterest" ; ] ;
+                     sh:message  "The feature of interest is not of type sosa:FeatureOfInterest" ; ] ;
     sh:property    [ sh:path     peco:inEmissionActivityContext ;
                      sh:class    peco:EmissionGenerationActivity ;
                      sh:severity sh:Violation ;
-                     sh:message  "A property linking an observation to an emission generation activity should be of type peco:EmissionGenerationActivity" ; ] .
+                     sh:message  "A property linking an observation to an emission generation activity is not of type peco:EmissionGenerationActivity" ; ] .
 
 #QUDT constraints
 qudt:QuantityShape
@@ -58,8 +58,8 @@ qudt:QuantityShape
     sh:property    [ sh:path     qudt:unit ;
                      sh:or       ( [ sh:class qudt:Unit ] [ sh:class qudt:unit ] ) ;
                      sh:severity sh:Violation ;
-                     sh:message  "Quantity's units should be of type qudt:Unit" ; ] ;
+                     sh:message  "Quantity's units are not of type qudt:Unit" ; ] ;
     sh:property    [ sh:path     qudt:hasQuantityKind ;
                      sh:class    qudt:QuantityKind ;
                      sh:severity sh:Violation ;
-                     sh:message  "Quantity's quantity kind should be of type qudt:QuantityKind" ; ] .
+                     sh:message  "Quantity's quantity kind should is not of type qudt:QuantityKind" ; ] .

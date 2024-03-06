@@ -12,22 +12,22 @@ ecfo:EmissionConversionFactorShape
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
                      sh:severity sh:Violation ;
-                     sh:message  "An emission conversion factor should have exactly one source unit" ] ;
+                     sh:message  "An emission conversion factor has more than one source unit" ] ;
     sh:property    [ sh:path     ecfo:hasTargetUnit ;
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
                      sh:severity sh:Violation ;
-                     sh:message  "An emission conversion factor should have exactly one target unit" ] ;
+                     sh:message  "An emission conversion factor has more than one target unit" ] ;
     sh:property    [ sh:path     ecfo:hasApplicableLocation ;
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
                      sh:severity sh:Warning ;
-                     sh:message  "An emission conversion factor should have exactly one applicable location" ] ;
+                     sh:message  "An emission conversion factor has more than one applicable location" ] ;
     sh:property    [ sh:path     ecfo:hasEmissionTarget ;
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
                      sh:severity sh:Violation ;
-                     sh:message  "An emission conversion factor should have exactly one emission target" ; ] .
+                     sh:message  "An emission conversion factor has more than one emission target" ; ] .
 
 #PECO constraints
 peco:EmissionGenerationActivityShape
@@ -37,7 +37,7 @@ peco:EmissionGenerationActivityShape
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
                      sh:severity sh:Violation ;
-                     sh:message  "An emission generation activity should have exactly one emission score" ; ] .
+                     sh:message  "An emission generation activity has more than one emission score" ; ] .
 
 peco:EmissionCalculationActivityShape
     a              sh:NodeShape ;
@@ -46,7 +46,7 @@ peco:EmissionCalculationActivityShape
                      sh:qualifiedMinCount   1 ;
                      sh:qualifiedValueShape [ sh:class peco:EmissionCalculationEntity ; ] ;
                      sh:severity            sh:Violation ;
-                     sh:message             "An emission calculation activity should involve at least one peco:EmissionCalculationEntity" ; ] .
+                     sh:message             "An emission calculation activity does not involve at least one peco:EmissionCalculationEntity" ; ] .
 
 #SOSA constraints
 sosa:ObservationShape
@@ -55,19 +55,19 @@ sosa:ObservationShape
     sh:property    [ sh:path     sosa:hasResult ;
                      sh:minCount 1 ;
                      sh:severity sh:Violation ;
-                     sh:message  "An observation should have at least one result" ; ] ;
+                     sh:message  "An observation does not have any results" ; ] ;
     sh:property    [ sh:path     sosa:madeBySensor ;
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
                      sh:severity sh:Violation ;
-                     sh:message  "An observation should be made by exactly one sensor" ; ] ;
+                     sh:message  "An observation is not made by a single sensor" ; ] ;
     sh:property    [ sh:path     sosa:hasFeatureOfInterest ;
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
                      sh:severity sh:Violation ;
-                     sh:message  "An observation should have exactly one feature of interest" ; ] ;
+                     sh:message  "An observation has more than one feature of interest" ; ] ;
     sh:property    [ sh:path     peco:inEmissionActivityContext ;
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
                      sh:severity sh:Violation ;
-                     sh:message  "An emission generation activity should be linked to exactly one sosa:Observation" ; ] .
+                     sh:message  "An emission generation activity is not linked to exactly one sosa:Observation" ; ] .

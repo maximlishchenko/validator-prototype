@@ -8,7 +8,7 @@ ecfo:EmissionConversionFactorShape
     a              sh:NodeShape ;
     sh:targetClass ecfo:EmissionConversionFactor ;
     sh:sparql      [ sh:severity sh:Violation ;
-                     sh:message  "An emission calculation activity that involved a CF used entities with non-matching units" ;
+                     sh:message  "An emission calculation activity that involved a conversion factor used entities with non-matching units" ;
                      sh:select   """
                      PREFIX peco: <https://w3id.org/peco#>
                      PREFIX prov: <http://www.w3.org/ns/prov#>
@@ -47,7 +47,7 @@ peco:EmissionGenerationActivityShape
     sh:targetClass peco:EmissionGenerationActivity ;
     sh:property    [ sh:path     prov:atLocation ;
                      sh:severity sh:Warning ;
-                     sh:message  "An emission generation activity should have happened at conversion factor's applicable location" ;
+                     sh:message  "An emission generation activity did not happen at conversion factor's applicable location" ;
                      sh:sparql   [ sh:select """
                      PREFIX peco: <https://w3id.org/peco#>
                      PREFIX prov: <http://www.w3.org/ns/prov#>
