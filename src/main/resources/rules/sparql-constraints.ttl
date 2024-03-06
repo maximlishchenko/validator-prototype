@@ -2,6 +2,7 @@
 @prefix sh:   <http://www.w3.org/ns/shacl#> .
 @prefix peco: <https://w3id.org/peco#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 
 #ECFO constraints
 ecfo:EmissionConversionFactorShape
@@ -39,6 +40,19 @@ ecfo:EmissionConversionFactorShape
                         ?end time:inXSDDate ?endValue .
                         FILTER(?endValue < now())
                      }
+                     """ ] ] ;
+    sh:property    [ sh:path     rdf:value ;
+                     sh:severity sh:Violation ;
+                     sh:message  "An emission conversion factor's value is negative" ;
+                     sh:sparql   [ sh:select """
+                     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                     PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                     SELECT $this
+                     WHERE {
+                        $this rdf:value ?value .
+                        BIND(xsd:float(?value) AS ?floatValue) .
+                        FILTER(?floatValue < 0) .
+                       }
                      """ ] ] .
 
 #PECO constraints

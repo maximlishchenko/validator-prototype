@@ -3,6 +3,7 @@
 @prefix peco: <https://w3id.org/peco#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 
 #ECFO constraints
 ecfo:EmissionConversionFactorShape
@@ -27,7 +28,12 @@ ecfo:EmissionConversionFactorShape
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
                      sh:severity sh:Violation ;
-                     sh:message  "An emission conversion factor has more than one emission target" ; ] .
+                     sh:message  "An emission conversion factor has more than one emission target" ; ] ;
+    sh:property    [ sh:path     rdf:value ;
+                     sh:minCount 1 ;
+                     sh:maxCount 1 ;
+                     sh:severity sh:Violation ;
+                     sh:message  "An emission conversion factor has more than one value" ; ] .
 
 #PECO constraints
 peco:EmissionGenerationActivityShape
