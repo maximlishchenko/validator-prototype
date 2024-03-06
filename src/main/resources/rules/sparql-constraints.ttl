@@ -3,6 +3,7 @@
 @prefix peco: <https://w3id.org/peco#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
 
 #ECFO constraints
 ecfo:EmissionConversionFactorShape
@@ -115,3 +116,18 @@ peco:EmissionScoreShape
                         FILTER(?scoreUnit != ?cfUnit)
                      }
                    """ ; ] .
+
+peco:EmissionCalculationEntityShape
+    a              sh:NodeShape ;
+    sh:targetClass peco:EmissionCalculationEntity ;
+    sh:property    [ sh:path     qudt:value ;
+                     sh:severity sh:Warning ;
+                     sh:message  "An emission calculation entity has a negative value" ;
+                     sh:sparql   [ sh:select """
+                     PREFIX qudt: <http://qudt.org/schema/qudt/>
+                     SELECT $this
+                     WHERE {
+                        $this qudt:value ?value .
+                        FILTER(?value < 0)
+                     }
+                     """ ] ] .
