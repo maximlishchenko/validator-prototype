@@ -135,8 +135,13 @@ class ValidatorApplicationTests {
     }
 
     @Test
-    // catch cardinality constraints related to ECFO entities
+    // catch cardinality constraints related to SOSA entities
     public void testValidateSOSACardinalitySMLITrace3() {
+        // introduce 4 errors in sosa:Observation
+        // 1) 2 features of interest
+        // 2) made by 2 sensors
+        // 3) linked to 2 emission generation activities one of which is non-existent
+        // 4) has no results
         String res = Service.validateCardinality("smli_trace3_invalid_sosa_cardinality");
         JsonArray jsonArray = new Gson().fromJson(res, JsonArray.class);
         assertEquals(4, jsonArray.size());
@@ -154,7 +159,7 @@ class ValidatorApplicationTests {
             pathCount.put(resultPath, pathCount.getOrDefault(resultPath, 0) + 1);
         }
 
-        // check that each resultPath occurs once
+        // check that the expected resultPath occurs exactly once
         assertEquals(1, pathCount.get("sosa:hasFeatureOfInterest"));
         assertEquals(1, pathCount.get("sosa:hasResult"));
         assertEquals(1, pathCount.get("sosa:madeBySensor"));
@@ -164,6 +169,11 @@ class ValidatorApplicationTests {
     @Test
     // catch type constraints related to ECFO entities
     public void testValidateECFOTypeSMLITrace4() {
+        // introduce 4 errors in the conversion factor
+        // 1) invalid source units
+        // 2) invalid target units
+        // 3) invalid emission target
+        // 4) invalid scope
         String res = Service.validateType("smli_trace4_invalid_ecfo_type");
         JsonArray jsonArray = new Gson().fromJson(res, JsonArray.class);
         assertEquals(4, jsonArray.size());
@@ -181,7 +191,7 @@ class ValidatorApplicationTests {
             pathCount.put(resultPath, pathCount.getOrDefault(resultPath, 0) + 1);
         }
 
-        // check that each resultPath occurs once
+        // expect that each resultPath occurs exactly once
         assertEquals(1, pathCount.get("ecfo:hasSourceUnit"));
         assertEquals(1, pathCount.get("ecfo:hasTargetUnit"));
         assertEquals(1, pathCount.get("peco:scope"));
@@ -191,10 +201,11 @@ class ValidatorApplicationTests {
     @Test
     // catch type constraints related to PECO and QUDT entities
     public void testValidatePECOQUDTTypeSMLITrace4() {
+        // introduce 9 errors
+        // remove the emission score from the @type array of the emission score
+        // make the units and quantity kind invalid in all the 4 quantities present in the trace
         String res = Service.validateType("smli_trace4_invalid_peco_qudt_type");
         JsonArray jsonArray = new Gson().fromJson(res, JsonArray.class);
-        // 1 error was introduced in EmissionScore
-        // In 4 Quantities, 2 errors were introduced in each
         assertEquals(9, jsonArray.size());
 
         Map<String, Integer> pathCount = new HashMap<>();
@@ -207,17 +218,22 @@ class ValidatorApplicationTests {
             pathCount.put(resultPath, pathCount.getOrDefault(resultPath, 0) + 1);
         }
 
+        // expect to see invalid units and quantity kinds 4 times
         assertEquals(4, pathCount.get("qudt:unit"));
         assertEquals(4, pathCount.get("qudt:hasQuantityKind"));
+        // expect to see path related to emission score once
         assertEquals(1, pathCount.get("peco:hasEmissionScore"));
     }
 
     @Test
     // catch type constraints related to SOSA entities
     public void testValidateSOSATypeSMLITrace4() {
+        // introduce 3 errors related to sosa:Observation
+        // 1) remove the sosa:Result type from the observation result's @type array
+        // 2) remove the sosa:featureOfInterest type from the FOI's @type array
+        // 3) the observation is linked to a non-existent emission generation activity
         String res = Service.validateType("smli_trace4_invalid_sosa_type");
         JsonArray jsonArray = new Gson().fromJson(res, JsonArray.class);
-        // 3 errors were introduced related to sosa:Observation
         assertEquals(3, jsonArray.size());
 
         Map<String, Integer> pathCount = new HashMap<>();
@@ -233,7 +249,7 @@ class ValidatorApplicationTests {
             pathCount.put(resultPath, pathCount.getOrDefault(resultPath, 0) + 1);
         }
 
-        // check that each resultPath occurs once
+        // expect that each resultPath occurs once
         assertEquals(1, pathCount.get("sosa:hasResult"));
         assertEquals(1, pathCount.get("sosa:hasFeatureOfInterest"));
         assertEquals(1, pathCount.get("peco:inEmissionActivityContext"));
@@ -242,9 +258,11 @@ class ValidatorApplicationTests {
     @Test
     public void validateInvalidObsResultWaterTrace() {
         // Introduced an error in observation result's units
+
         // expect to have no cardinality violations
         String cardinalityRes = Service.validateCardinality("water_trace_invalid_obsresult");
         assertEquals("[]", cardinalityRes);
+
         String sparqlRes = Service.validateSparql("water_trace_invalid_obsresult");
         JsonArray sparqlViolationsArray = new Gson().fromJson(sparqlRes, JsonArray.class);
         assertEquals(1, sparqlViolationsArray.size());
@@ -252,11 +270,12 @@ class ValidatorApplicationTests {
         // catch errors focusing the conversion factor
         assertEquals("https://water.com/provenance/cf", jsonObject.get("focusNode").getAsString());
         assertEquals("An emission calculation activity that involved a conversion factor used an entity with units different from that CF units", jsonObject.get("resultMessage").getAsString());
+
         String typeRes = Service.validateType("water_trace_invalid_obsresult");
         JsonArray typeViolationsArray = new Gson().fromJson(typeRes, JsonArray.class);
         assertEquals(1, typeViolationsArray.size());
         jsonObject = typeViolationsArray.get(0).getAsJsonObject();
-        // catch errors focusing the observation result
+        // expect to see an error in observation result's units
         assertEquals("https://water.com/provenance/CalculationEntity/ObservationResult/obsresult1", jsonObject.get("focusNode").getAsString());
         assertEquals("Quantity's units are not of type qudt:Unit", jsonObject.get("resultMessage").getAsString());
         assertEquals("qudt:unit", jsonObject.get("resultPath").getAsString());
@@ -268,6 +287,8 @@ class ValidatorApplicationTests {
         // expect to have no cardinality violations
         String cardinalityRes = Service.validateCardinality("water_trace_invalid_emissionscore");
         assertEquals("[]", cardinalityRes);
+
+
         String sparqlRes = Service.validateSparql("water_trace_invalid_emissionscore");
         JsonArray sparqlViolationsArray = new Gson().fromJson(sparqlRes, JsonArray.class);
         assertEquals(1, sparqlViolationsArray.size());
@@ -275,6 +296,7 @@ class ValidatorApplicationTests {
         // catch errors related to incompatibility of CF and emission score
         assertEquals("https://water.com/provenance/CalculationEntity/emission-score", jsonObject.get("focusNode").getAsString());
         assertEquals("The quantity kind of the emission score is not compatible with the conversion factor's target chemical compound", jsonObject.get("resultMessage").getAsString());
+
         String typeRes = Service.validateType("water_trace_invalid_emissionscore");
         JsonArray typeViolationsArray = new Gson().fromJson(typeRes, JsonArray.class);
         assertEquals(1, typeViolationsArray.size());
@@ -286,9 +308,11 @@ class ValidatorApplicationTests {
     }
 
     @Test
-    public void validateInvalidSMLITrace3() {
-        // add a second source unit to the conversion factor
-        String cardinalityRes = Service.validateCardinality("smli_trace3_invalid1");
+    public void validateInvalidCFSMLITrace3() {
+        // added a second source unit to the conversion factor
+        // the conversion factor is out of date
+
+        String cardinalityRes = Service.validateCardinality("smli_trace3_invalid_cf");
         JsonArray cardinalityViolationsArray = new Gson().fromJson(cardinalityRes, JsonArray.class);
         assertEquals(1, cardinalityViolationsArray.size());
         JsonObject jsonObject = cardinalityViolationsArray.get(0).getAsJsonObject();
@@ -298,7 +322,7 @@ class ValidatorApplicationTests {
         assertEquals("ecfo:hasSourceUnit", jsonObject.get("resultPath").getAsString());
         assertEquals("An emission conversion factor has more than one source unit", jsonObject.get("resultMessage").getAsString());
 
-        String typeRes = Service.validateType("smli_trace3_invalid1");
+        String typeRes = Service.validateType("smli_trace3_invalid_cf");
         JsonArray typeViolationsArray = new Gson().fromJson(typeRes, JsonArray.class);
         assertEquals(1, typeViolationsArray.size());
         jsonObject = typeViolationsArray.get(0).getAsJsonObject();
@@ -306,10 +330,10 @@ class ValidatorApplicationTests {
         assertEquals("https://w3id.org/ecfkg/i/mlco2/aws/cn-north-1/cf", jsonObject.get("focusNode").getAsString());
         // expect the path to be ecfo:hasSourceUnit
         assertEquals("ecfo:hasSourceUnit", jsonObject.get("resultPath").getAsString());
-        // expect to see a violation since type of conversion factor's second source unit is incorrect
+        // expect to see a violation since the type of conversion factor's second source unit is incorrect
         assertEquals("An emission conversion factor's source units are not of type qudt:Unit", jsonObject.get("resultMessage").getAsString());
 
-        String sparqlRes = Service.validateSparql("smli_trace3_invalid1");
+        String sparqlRes = Service.validateSparql("smli_trace3_invalid_cf");
         JsonArray jsonArray = new Gson().fromJson(sparqlRes, JsonArray.class);
         // expect to see 2 violations: CF out of date
         // and that activity used an entity with units that do not match CF units
@@ -331,5 +355,44 @@ class ValidatorApplicationTests {
         // expect appropriate messages to appear exactly once
         assertEquals(1, messageCount.get("An emission calculation activity that involved a conversion factor used an entity with units different from that CF units"));
         assertEquals(1, messageCount.get("An emission conversion factor used in the calculation is out of date"));
+    }
+
+    @Test
+    public void validateInvalidCFInvalidEmissionScoreCalciumChlorideTrace() {
+        // changed the emission generation activity's location to match CF location, so this error is not raised
+        // made CF value negative
+        // changed the units of the emission score so they do not match CF target units
+        String sparqlRes = Service.validateSparql("calcium_chloride_trace_invalid_cf_invalid_score");
+        JsonArray jsonArray = new Gson().fromJson(sparqlRes, JsonArray.class);
+        // expect to see 2 violations: CF value negative
+        // and that emission score's units do not match CF target units
+        assertEquals(2, jsonArray.size());
+
+        // keep track of focused nodes
+        Map<String, Integer> focusNodeCount = new HashMap<>();
+        // keep track of error messages
+        Map<String, Integer> messageCount = new HashMap<>();
+        // keep track of result paths
+        Map<String, Integer> resultPathCount = new HashMap<>();
+
+        for (JsonElement element : jsonArray) {
+            JsonObject jsonObject = element.getAsJsonObject();
+            String focusNode = jsonObject.get("focusNode").getAsString();
+            focusNodeCount.put(focusNode, focusNodeCount.getOrDefault(focusNode, 0) + 1);
+            String resultMessage = jsonObject.get("resultMessage").getAsString();
+            messageCount.put(resultMessage, messageCount.getOrDefault(resultMessage, 0) + 1);
+            String resultPath = jsonObject.get("resultPath").getAsString();
+            resultPathCount.put(resultPath, resultPathCount.getOrDefault(resultPath, 0) + 1);
+        }
+
+        // expect that emission score and cf were targeted once
+        assertEquals(1, focusNodeCount.get("https://cacl2.com/provenance/cf"));
+        assertEquals(1, focusNodeCount.get("https://cacl2.com/provenance/CalculationEntity/emission-score"));
+        // expect the appropriate error messages
+        assertEquals(1, messageCount.get("An emission conversion factor's value is negative"));
+        assertEquals(1, messageCount.get("The units of the emission score are not compatible with the conversion factor's target units"));
+        // expect the result paths to be rdf:value for CF, qudt:unit for emission score
+        assertEquals(1, resultPathCount.get("rdf:value"));
+        assertEquals(1, resultPathCount.get("qudt:unit"));
     }
 }

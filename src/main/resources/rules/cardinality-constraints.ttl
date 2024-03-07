@@ -66,7 +66,7 @@ sosa:ObservationShape
                      sh:minCount 1 ;
                      sh:maxCount 1 ;
                      sh:severity sh:Violation ;
-                     sh:message  "An observation has more than one feature of interest" ; ] ;
+                     sh:message  "An observation does not have exactly one feature of interest" ; ] ;
     sh:property    [ sh:path     peco:inEmissionActivityContext ;
                      sh:minCount 1 ;
                      sh:maxCount 1 ;

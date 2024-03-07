@@ -151,7 +151,7 @@
     },
     "@graph":[
         {
-            "@id":"https://github.com/mlco2/impact/provenance/i/Observation/9db05d79-d4c0-41b6-afd2-976c2587623d",
+            "@id":"https://cacl2.com/provenance/Observation/obs1",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Activity",
@@ -161,179 +161,72 @@
                 "https://www.wikidata.org/entity/Q5"
             ],
             "hasFeatureOfInterest":[
-                "https://github.com/mlco2/impact/provenance/i/FeatureOfInterest/7e41ff2c-ad84-453f-999e-1e00cbffda46"
+                "https://cacl2.com/provenance/FeatureOfInterest/foi1"
             ],
             "madeBySensor":"https://www.wikidata.org/entity/Q5",
-            "label":"Observe the duration GPU was used for",
-            "inEmissionActivityContext":"https://github.com/mlco2/impact/provenance/i/EmissionGenerationActivity/abc12345",
+            "label":"Observe the amount of calcium chloride used in brewing process",
+            "inEmissionActivityContext":"https://cacl2.com/provenance/EmissionGenerationActivity/ega1",
             "hasResult":[
-                "https://github.com/mlco2/impact/provenance/i/CalculationEntity/ObservationResult/69f61572-e533-45bf-b635-44a8e20d98d4"
+                "https://cacl2.com/provenance/CalculationEntity/ObservationResult/obsresult1"
             ]
         },
         {
-            "@id":"https://github.com/mlco2/impact/provenance/i/EmissionGenerationActivity/b5cfe151-0d41-4127-8da0-f516a6aa4859",
+            "@id":"https://cacl2.com/provenance/FeatureOfInterest/foi1",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://www.w3.org/ns/prov#Entity",
+                "http://www.w3.org/ns/sosa/FeatureOfInterest"
+            ],
+            "label":"Calcium chloride usage"
+        },
+        {
+            "@id":"https://cacl2.com/provenance/EmissionGenerationActivity/ega1",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Activity",
                 "https://w3id.org/peco#EmissionGenerationActivity"
             ],
             "hasEmissionScore":[
-                "https://github.com/mlco2/impact/provenance/i/CalculationEntity/f16b7e64-6b7f-4e4d-918d-39367b7b4d50"
+                "https://cacl2.com/provenance/CalculationEntity/emission-score"
             ],
-            "label":"ML model training",
-            "atLocation":"https://w3id.org/ecfkg/i/mlco2/gcp/australia-southeast1"
+            "label":"Usage of calcium chloride in brewing process",
+            "atLocation":"https://www.wikidata.org/wiki/Q16"
         },
         {
-            "@id":"https://github.com/mlco2/impact/provenance/i/FeatureOfInterest/7e41ff2c-ad84-453f-999e-1e00cbffda46",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://www.w3.org/ns/prov#Entity"
-            ],
-            "label":"T4"
-        },
-        {
-            "@id":"https://github.com/mlco2/impact/provenance/i/CalculationEntity/14e90d4e-59a6-428b-b9e6-ceb8cff81c0a",
+            "@id":"https://cacl2.com/provenance/CalculationEntity/ObservationResult/obsresult1",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "https://w3id.org/peco#EmissionCalculationEntity",
-                "http://qudt.org/schema/qudt/Quantity"
+                "http://qudt.org/schema/qudt/Quantity",
+                "http://www.w3.org/ns/sosa/Result"
             ],
-            "label":"Watt Consumption",
+            "label":"Grams of calcium chloride used per litre of brewing water",
             "qudt_value":{
-                "@value":70,
+                "@value":0.5,
                 "@type":"xsd:float"
             },
-            "unit":"http://www.wikidata.org/entity/Q25236",
-            "hasQuantityKind":"http://www.wikidata.org/entity/Q1053879"
+            "unit":"https://www.wikidata.org/entity/Q41803",
+            "hasQuantityKind":"https://www.wikidata.org/wiki/Q11423"
         },
         {
-            "@id":"http://www.wikidata.org/entity/Q25236",
+            "@id":"https://www.wikidata.org/entity/Q41803",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://qudt.org/schema/qudt/Unit"
             ]
         },
         {
-            "@id":"http://www.wikidata.org/entity/Q1053879",
+            "@id":"https://www.wikidata.org/wiki/Q11423",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://qudt.org/schema/qudt/QuantityKind"
             ]
         },
         {
-            "@id":"https://github.com/mlco2/impact/provenance/i/CalculationEntity/ObservationResult/69f61572-e533-45bf-b635-44a8e20d98d4",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "https://w3id.org/peco#EmissionCalculationEntity",
-                "http://qudt.org/schema/qudt/Quantity"
-            ],
-            "label":"Duration of Use",
-            "qudt_value":245,
-            "unit":"http://www.wikidata.org/entity/Q25235",
-            "hasQuantityKind":"http://www.wikidata.org/entity/Q3517751"
-        },
-        {
-            "@id":"http://www.wikidata.org/entity/Q25235",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://qudt.org/schema/qudt/Unit"
-            ]
-        },
-        {
-            "@id":"http://www.wikidata.org/entity/Q3517751",
+            "@id":"https://www.wikidata.org/wiki/Q2356542",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://qudt.org/schema/qudt/QuantityKind"
-            ]
-        },
-        {
-            "@id":"https://github.com/mlco2/impact/provenance/i/CalculationEntity/d40ab4e8-bb99-4662-ae9f-772cc139327c",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "https://w3id.org/peco#EmissionCalculationEntity",
-                "http://qudt.org/schema/qudt/Quantity"
-            ],
-            "label":"Energy Used",
-            "qudt_value":{
-                "@value":17.15,
-                "@type":"xsd:float"
-            },
-            "unit":"http://www.wikidata.org/entity/Q182098",
-            "hasQuantityKind":"http://www.wikidata.org/entity/Q12725",
-            "wasGeneratedBy":[
-                "https://github.com/mlco2/impact/provenance/i/05796ffa-5d67-4d6d-938d-b1cac3a578a5"
-            ]
-        },
-        {
-            "@id":"http://www.wikidata.org/entity/Q182098",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://qudt.org/schema/qudt/Unit"
-            ]
-        },
-        {
-            "@id":"http://www.wikidata.org/entity/Q12725",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://qudt.org/schema/qudt/QuantityKind"
-            ]
-        },
-        {
-            "@id":"https://github.com/mlco2/impact/provenance/i/05796ffa-5d67-4d6d-938d-b1cac3a578a5",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://www.w3.org/ns/prov#Activity",
-                "https://w3id.org/peco#EmissionCalculationActivity"
-            ],
-            "wasAssociatedWith":[
-                "https://github.com/TEC-Toolkit/Semantic_Machine_Learning_Impact_Calculator"
-            ],
-            "label":"Estimate Electricity Use in kW/h",
-            "used":[
-                "https://github.com/mlco2/impact/provenance/i/CalculationEntity/14e90d4e-59a6-428b-b9e6-ceb8cff81c0a",
-                "https://github.com/mlco2/impact/provenance/i/CalculationEntity/ObservationResult/69f61572-e533-45bf-b635-44a8e20d98d4"
-            ]
-        },
-        {
-            "@id":"https://github.com/mlco2/impact/provenance/i/ca4e7968-0913-477c-b7a0-093137d306d4",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://www.w3.org/ns/prov#Activity",
-                "https://w3id.org/peco#EmissionCalculationActivity"
-            ],
-            "wasAssociatedWith":[
-                "https://github.com/TEC-Toolkit/Semantic_Machine_Learning_Impact_Calculator"
-            ],
-            "label":"Emission Score Calculation",
-            "used":[
-                "https://github.com/mlco2/impact/provenance/i/CalculationEntity/d40ab4e8-bb99-4662-ae9f-772cc139327c",
-                "https://w3id.org/ecfkg/i/mlco2/gcp/australia-southeast1/cf"
-            ]
-        },
-        {
-            "@id":"https://github.com/mlco2/impact/provenance/i/CalculationEntity/f16b7e64-6b7f-4e4d-918d-39367b7b4d50",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "https://w3id.org/peco#EmissionCalculationEntity",
-                "https://w3id.org/peco#EmissionScore",
-                "http://qudt.org/schema/qudt/Quantity"
-            ],
-            "label":"Emission Score",
-            "qudt_value":{
-                "@value":13.72,
-                "@type":"xsd:float"
-            },
-            "unit":"http://www.wikidata.org/entity/Q11570",
-            "hasQuantityKind":"http://www.wikidata.org/entity/Q1933140",
-            "wasGeneratedBy":[
-                "https://github.com/mlco2/impact/provenance/i/ca4e7968-0913-477c-b7a0-093137d306d4"
-            ]
-        },
-        {
-            "@id":"http://www.wikidata.org/entity/Q11570",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://qudt.org/schema/qudt/Unit"
             ]
         },
         {
@@ -344,37 +237,173 @@
             ]
         },
         {
-            "@id":"https://w3id.org/ecfkg/i/mlco2/applicablePeriod/2016-01-01T00%3A00%3A00/2017-12-31T23%3A59%3A59",
-            "hasBeginning":"https://w3id.org/ecfkg/i/mlco2/applicablePeriod/2016-01-01T00%3A00%3A00/2017-12-31T23%3A59%3A59/start",
-            "hasEnd":"https://w3id.org/ecfkg/i/mlco2/applicablePeriod/2016-01-01T00%3A00%3A00/2017-12-31T23%3A59%3A59/end"
+            "@id":"https://cacl2.com/provenance/CalculationEntity/total-water",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "https://w3id.org/peco#EmissionCalculationEntity",
+                "http://qudt.org/schema/qudt/Quantity"
+            ],
+            "label":"Litres of water used per litre of beer",
+            "qudt_value":{
+                "@value":5.92,
+                "@type":"xsd:float"
+            },
+            "unit":"https://www.wikidata.org/wiki/Q11582",
+            "hasQuantityKind":"https://www.wikidata.org/wiki/Q39297"
         },
         {
-            "@id":"https://w3id.org/ecfkg/i/mlco2/applicablePeriod/2016-01-01T00%3A00%3A00/2017-12-31T23%3A59%3A59/end",
-            "@type":"ns4:Instant",
-            "inXSDDate":"2017-12-31T23:59:59"
+            "@id":"https://www.wikidata.org/wiki/Q11582",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://qudt.org/schema/qudt/Unit"
+            ]
         },
         {
-            "@id":"https://w3id.org/ecfkg/i/mlco2/applicablePeriod/2016-01-01T00%3A00%3A00/2017-12-31T23%3A59%3A59/start",
-            "@type":"ns4:Instant",
-            "inXSDDate":"2016-01-01T00:00:00"
+            "@id":"https://www.wikidata.org/wiki/Q39297",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://qudt.org/schema/qudt/QuantityKind"
+            ]
         },
         {
-            "@id":"https://w3id.org/ecfkg/i/mlco2/gcp/australia-southeast1/cf",
+            "@id":"https://cacl2.com/provenance/CalculationEntity/waste-water",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "https://w3id.org/peco#EmissionCalculationEntity",
+                "http://qudt.org/schema/qudt/Quantity"
+            ],
+            "label":"Litres of waste water used per litre of beer",
+            "qudt_value":{
+                "@value":4.29,
+                "@type":"xsd:float"
+            },
+            "unit":"https://www.wikidata.org/wiki/Q11582",
+            "hasQuantityKind":"https://www.wikidata.org/wiki/Q39297"
+        },
+        {
+            "@id":"https://cacl2.com/provenance/calculation-activity1",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://www.w3.org/ns/prov#Activity",
+                "https://w3id.org/peco#EmissionCalculationActivity"
+            ],
+            "wasAssociatedWith":[
+                "https://doi.org/10.1016/j.jclepro.2023.140181"
+            ],
+            "label":"Subtract waste water from total water usage",
+            "used":[
+                "https://cacl2.com/provenance/CalculationEntity/total-water",
+                "https://cacl2.com/provenance/CalculationEntity/waste-water"
+            ]
+        },
+        {
+            "@id":"https://cacl2.com/provenance/CalculationEntity/entity1",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "https://w3id.org/peco#EmissionCalculationEntity",
+                "http://qudt.org/schema/qudt/Quantity"
+            ],
+            "label":"Water that is relevant to calcium chloride use",
+            "qudt_value":{
+                "@value":1.63,
+                "@type":"xsd:float"
+            },
+            "unit":"https://www.wikidata.org/wiki/Q11582",
+            "hasQuantityKind":"https://www.wikidata.org/wiki/Q39297",
+            "wasGeneratedBy":[
+                "https://cacl2.com/provenance/calculation-activity1"
+            ]
+        },
+        {
+            "@id":"https://cacl2.com/provenance/calculation-activity2",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://www.w3.org/ns/prov#Activity",
+                "https://w3id.org/peco#EmissionCalculationActivity"
+            ],
+            "wasAssociatedWith":[
+                "https://doi.org/10.1016/j.jclepro.2023.140181"
+            ],
+            "label":"Multiply relevant water usage by calcium chloride usage",
+            "used":[
+                "https://cacl2.com/provenance/CalculationEntity/entity1",
+                "https://cacl2.com/provenance/CalculationEntity/ObservationResult/obsresult1"
+            ]
+        },
+        {
+            "@id":"https://cacl2.com/provenance/CalculationEntity/entity2",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "https://w3id.org/peco#EmissionCalculationEntity",
+                "http://qudt.org/schema/qudt/Quantity"
+            ],
+            "label":"Calculated calcium chloride usage",
+            "qudt_value":{
+                "@value":0.815,
+                "@type":"xsd:float"
+            },
+            "unit":"https://www.wikidata.org/entity/Q41803",
+            "hasQuantityKind":"https://www.wikidata.org/wiki/Q11423",
+            "wasGeneratedBy":[
+                "https://cacl2.com/provenance/calculation-activity2"
+            ]
+        },
+        {
+            "@id":"https://cacl2.com/provenance/emission-score-calculation",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://www.w3.org/ns/prov#Activity",
+                "https://w3id.org/peco#EmissionCalculationActivity"
+            ],
+            "wasAssociatedWith":[
+                "https://doi.org/10.1016/j.jclepro.2023.140181"
+            ],
+            "label":"Apply calcium chloride conversion factor",
+            "used":[
+                "https://cacl2.com/provenance/CalculationEntity/entity2",
+                "https://cacl2.com/provenance/cf"
+            ]
+        },
+        {
+            "@id":"https://cacl2.com/provenance/CalculationEntity/emission-score",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "https://w3id.org/peco#EmissionCalculationEntity",
+                "https://w3id.org/peco#EmissionScore",
+                "http://qudt.org/schema/qudt/Quantity"
+            ],
+            "label":"Emission Score",
+            "qudt_value":{
+                "@value":0.7254,
+                "@type":"xsd:float"
+            },
+            "unit":"https://www.wikidata.org/entity/Q11570",
+            "hasQuantityKind":"http://www.wikidata.org/entity/Q1933140",
+            "wasGeneratedBy":[
+                "https://cacl2.com/provenance/emission-score-calculation"
+            ]
+        },
+        {
+            "@id":"https://www.wikidata.org/entity/Q11570",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://qudt.org/schema/qudt/Unit"
+            ]
+        },
+        {
+            "@id":"https://cacl2.com/provenance/cf",
             "@type":"ecfo:EmissionConversionFactor",
-            "publisher":"https://w3id.org/ecfkg/i/mlco2/MLCO2ImpactCalculator",
-            "value":"0.802",
-            "wasDerivedFrom":"https://www.cleanenergyregulator.gov.au/NGER/National%20greenhouse%20and%20energy%20reporting%20data/electricity-sector-emissions-and-generation-data/electricity-sector-emissions-and-generation-data-2016-17",
-            "hasApplicableLocation":"https://w3id.org/ecfkg/i/mlco2/gcp/australia-southeast1",
-            "hasApplicablePeriod":"https://w3id.org/ecfkg/i/mlco2/applicablePeriod/2016-01-01T00%3A00%3A00/2017-12-31T23%3A59%3A59",
-            "hasEmissionSource":"http://www.wikidata.org/entity/Q12725",
+            "publisher":"https://legacy.winnipeg.ca/finance/findata/matmgt/documents/2012/682-2012/682-2012_appendix_h-wstp_south_end_plant_process_selection_report/appendix%207.pdf",
+            "value":"-0.89",
+            "hasApplicableLocation":"https://www.wikidata.org/wiki/Q16",
+            "hasEmissionSource":"https://www.wikidata.org/wiki/Q2356542",
             "hasEmissionTarget":"http://www.wikidata.org/entity/Q1933140",
             "hasScope":"ecfo:Scope2",
-            "hasSourceUnit":"http://www.wikidata.org/entity/Q182098",
+            "hasSourceUnit":"https://www.wikidata.org/entity/Q41803",
             "hasTag":[
-                "https://w3id.org/ecfkg/i/mlco2/gcp",
-                "https://www.wikidata.org/entity/Q12725"
+                "http://www.wikidata.org/entity/Q12725"
             ],
-            "hasTargetUnit":"http://www.wikidata.org/entity/Q11570"
+            "hasTargetUnit":"https://www.wikidata.org/entity/Q41803"
         }
     ]
 }
