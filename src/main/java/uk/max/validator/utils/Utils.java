@@ -71,7 +71,9 @@ public class Utils {
         ValidationReport report = generateReport(rules, dataGraph);
 
         if (report.conforms()) {
-            return "No violations";
+            // empty JSON array means no validation errors are present
+            String res = "[]";
+            return res;
         }
         // else ...
         JsonArray validationResults = generateValidationResults(report);

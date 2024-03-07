@@ -364,13 +364,12 @@
             "@id":"https://w3id.org/ecfkg/i/mlco2/aws/cn-north-1/cf",
             "@type":"ecfo:EmissionConversionFactor",
             "publisher":"https://w3id.org/ecfkg/i/mlco2/MLCO2ImpactCalculator",
-            "value":"0.68",
-            "wasDerivedFrom":"https://www.carbonfootprint.com/docs/2018_8_electricity_factors_august_2018_-_online_sources.pdf",
-            "hasApplicableLocation":[
-                "https://w3id.org/ecfkg/i/mlco2/aws/cn-north-1",
-                "https://www.wikidata.org/wiki/Q145",
-                "https://www.wikidata.org/wiki/Q146"
+            "value":[
+                "0.68",
+                "0.62"
             ],
+            "wasDerivedFrom":"https://www.carbonfootprint.com/docs/2018_8_electricity_factors_august_2018_-_online_sources.pdf",
+            "hasApplicableLocation":"https://w3id.org/ecfkg/i/mlco2/aws/cn-north-1",
             "hasApplicablePeriod":"https://w3id.org/ecfkg/i/mlco2/applicablePeriod/2018-01-01T00%3A00%3A00/2018-12-31T23%3A59%3A59",
             "hasEmissionSource":"http://www.wikidata.org/entity/Q12725",
             "hasEmissionTarget":[

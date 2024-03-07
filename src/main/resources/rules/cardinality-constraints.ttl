@@ -19,11 +19,6 @@ ecfo:EmissionConversionFactorShape
                      sh:maxCount 1 ;
                      sh:severity sh:Violation ;
                      sh:message  "An emission conversion factor has more than one target unit" ] ;
-    sh:property    [ sh:path     ecfo:hasApplicableLocation ;
-                     sh:minCount 1 ;
-                     sh:maxCount 1 ;
-                     sh:severity sh:Warning ;
-                     sh:message  "An emission conversion factor has more than one applicable location" ] ;
     sh:property    [ sh:path     ecfo:hasEmissionTarget ;
                      sh:minCount 1 ;
                      sh:maxCount 1 ;

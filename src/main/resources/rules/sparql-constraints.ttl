@@ -10,7 +10,7 @@ ecfo:EmissionConversionFactorShape
     a              sh:NodeShape ;
     sh:targetClass ecfo:EmissionConversionFactor ;
     sh:sparql      [ sh:severity sh:Violation ;
-                     sh:message  "An emission calculation activity that involved a conversion factor used entities with non-matching units" ;
+                     sh:message  "An emission calculation activity that involved a conversion factor used an entity with units different from that CF units" ;
                      sh:select   """
                      PREFIX peco: <https://w3id.org/peco#>
                      PREFIX prov: <http://www.w3.org/ns/prov#>
@@ -53,7 +53,7 @@ ecfo:EmissionConversionFactorShape
                         $this rdf:value ?value .
                         BIND(xsd:float(?value) AS ?floatValue) .
                         FILTER(?floatValue < 0) .
-                       }
+                     }
                      """ ] ] .
 
 #PECO constraints
@@ -86,9 +86,10 @@ peco:EmissionGenerationActivityShape
 peco:EmissionScoreShape
     a              sh:NodeShape ;
     sh:targetClass peco:EmissionScore ;
-    sh:sparql      [ sh:severity sh:Violation ;
+    sh:property    [ sh:path     qudt:hasQuantityKind ;
+                     sh:severity sh:Violation ;
                      sh:message  "The quantity kind of the emission score is not compatible with the conversion factor's target chemical compound" ;
-                     sh:select   """
+                     sh:sparql   [ sh:select """
                      PREFIX peco: <https://w3id.org/peco#>
                      PREFIX qudt: <http://qudt.org/schema/qudt/>
                      PREFIX ecfo: <https://w3id.org/ecfo#>
@@ -100,10 +101,11 @@ peco:EmissionScoreShape
                                 ecfo:hasEmissionTarget ?cfEmissionTarget .
                         FILTER(?scoreQuantityKind != ?cfEmissionTarget)
                      }
-                     """ ] ;
-    sh:sparql      [ sh:severity sh:Violation ;
+                     """ ] ] ;
+    sh:property    [ sh:path     qudt:unit ;
+                     sh:severity sh:Violation ;
                      sh:message  "The units of the emission score are not compatible with the conversion factor's target units" ;
-                     sh:select   """
+                     sh:sparql   [ sh:select """
                      PREFIX peco: <https://w3id.org/peco#>
                      PREFIX qudt: <http://qudt.org/schema/qudt/>
                      PREFIX ecfo: <https://w3id.org/ecfo#>
@@ -115,7 +117,7 @@ peco:EmissionScoreShape
                                 ecfo:hasTargetUnit ?cfUnit .
                         FILTER(?scoreUnit != ?cfUnit)
                      }
-                   """ ; ] .
+                     """ ] ] .
 
 peco:EmissionCalculationEntityShape
     a              sh:NodeShape ;

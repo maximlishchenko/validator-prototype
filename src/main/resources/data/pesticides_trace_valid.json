@@ -178,7 +178,7 @@
                 "https://w3id.org/peco#EmissionScore",
                 "http://qudt.org/schema/qudt/Quantity"
             ],
-            "label":"Amount of pesticides contributing to the carbon footprint of hop cultivation per 1 litre of beer",
+            "label":"Emission score of pesticides contributing to the carbon footprint of hop cultivation per 1 litre of beer",
             "qudt_value":{
                 "@value":0.0513,
                 "@type":"xsd:float"

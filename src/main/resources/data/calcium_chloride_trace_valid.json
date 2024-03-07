@@ -164,7 +164,7 @@
                 "https://cacl2.com/provenance/FeatureOfInterest/foi1"
             ],
             "madeBySensor":"https://www.wikidata.org/entity/Q5",
-            "label":"Observe the amount of calcium chloride usage in brewing process",
+            "label":"Observe the amount of calcium chloride used in brewing process",
             "inEmissionActivityContext":"https://cacl2.com/provenance/EmissionGenerationActivity/ega1",
             "hasResult":[
                 "https://cacl2.com/provenance/CalculationEntity/ObservationResult/obsresult1"

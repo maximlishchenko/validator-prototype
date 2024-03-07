@@ -178,8 +178,7 @@
                 "https://w3id.org/peco#EmissionGenerationActivity"
             ],
             "hasEmissionScore":[
-                "https://github.com/mlco2/impact/provenance/i/CalculationEntity/7c3aee80-7718-4d78-ba6b-485af4d67347",
-                "https://github.com/mlco2/impact/provenance/i/CalculationEntity/123456-1234"
+                "https://github.com/mlco2/impact/provenance/i/CalculationEntity/7c3aee80-7718-4d78-ba6b-485af4d67347"
             ],
             "label":"ML model training",
             "atLocation":"https://w3id.org/ecfkg/i/mlco2/aws/cn-north-1"
@@ -293,8 +292,8 @@
             ],
             "label":"Estimate Electricity Use in kW/h",
             "used":[
-                "https://w3id.org/ecfkg/i/mlco2/applicablePeriod/2018-01-01T00%3A00%3A00/2018-12-31T23%3A59%3A59",
-                "https://github.com/mlco2/impact/provenance/i/43e88788-92a6-414f-8a7c-5728b5c8282c"
+                "https://github.com/mlco2/impact/provenance/i/CalculationEntity/478bdf50-b1f6-4750-9c66-2d92b96a9b06",
+                "https://github.com/mlco2/impact/provenance/i/CalculationEntity/ObservationResult/19073f06-9e0c-48e9-9dfa-f5453cc8deca"
             ]
         },
         {
@@ -309,7 +308,7 @@
             ],
             "label":"Emission Score Calculation",
             "used":[
-                "https://w3id.org/ecfkg/i/mlco2/applicablePeriod/2018-01-01T00%3A00%3A00/2018-12-31T23%3A59%3A59",
+                "https://github.com/mlco2/impact/provenance/i/CalculationEntity/c321c6ec-35dd-4953-9a9e-490bdb7aab48",
                 "https://w3id.org/ecfkg/i/mlco2/aws/cn-north-1/cf"
             ]
         },
@@ -372,7 +371,10 @@
             "hasEmissionSource":"http://www.wikidata.org/entity/Q12725",
             "hasEmissionTarget":"http://www.wikidata.org/entity/Q1933140",
             "hasScope":"ecfo:Scope2",
-            "hasSourceUnit":"http://www.wikidata.org/entity/Q182098",
+            "hasSourceUnit":[
+                "http://www.wikidata.org/entity/Q182098",
+                "http://www.wikidata.org/entity/Q182123"
+            ],
             "hasTag":[
                 "https://w3id.org/ecfkg/i/mlco2/aws",
                 "https://www.wikidata.org/entity/Q12725"
