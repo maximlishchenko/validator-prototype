@@ -395,4 +395,42 @@ class ValidatorApplicationTests {
         assertEquals(1, resultPathCount.get("rdf:value"));
         assertEquals(1, resultPathCount.get("qudt:unit"));
     }
+
+    @Test
+    public void validateRigFertiliserTrace() {
+        // expect the trace to be valid
+        assertEquals("[]", Service.validateCardinality("rig_fertiliser_trace"));
+        assertEquals("[]", Service.validateType("rig_fertiliser_trace"));
+        assertEquals("[]", Service.validateSparql("rig_fertiliser_trace"));
+    }
+
+    @Test
+    public void validateRigFertiliserInvalidEntityTrace() {
+        // made 2 emission calculation entities have a negative value
+        // expect no type and cardinality violations
+        assertEquals("[]", Service.validateCardinality("rig_fertiliser_trace_invalid_entity"));
+        assertEquals("[]", Service.validateType("rig_fertiliser_trace_invalid_entity"));
+        String sparqlRes = Service.validateSparql("rig_fertiliser_trace_invalid_entity");
+        JsonArray jsonArray = new Gson().fromJson(sparqlRes, JsonArray.class);
+        // expect to see 2 violations
+        assertEquals(2, jsonArray.size());
+
+        // keep track of error messages
+        Map<String, Integer> messageCount = new HashMap<>();
+        // keep track of result paths
+        Map<String, Integer> resultPathCount = new HashMap<>();
+
+        for (JsonElement element : jsonArray) {
+            JsonObject jsonObject = element.getAsJsonObject();
+            String resultMessage = jsonObject.get("resultMessage").getAsString();
+            messageCount.put(resultMessage, messageCount.getOrDefault(resultMessage, 0) + 1);
+            String resultPath = jsonObject.get("resultPath").getAsString();
+            resultPathCount.put(resultPath, resultPathCount.getOrDefault(resultPath, 0) + 1);
+        }
+
+        // expect to see 2 same messages
+        assertEquals(2, messageCount.get("An emission calculation entity has a negative value"));
+        // expect to see 2 same paths
+        assertEquals(2, resultPathCount.get("qudt:value"));
+    }
 }
