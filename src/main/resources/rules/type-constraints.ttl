@@ -4,7 +4,7 @@
 @prefix peco: <https://w3id.org/peco#> .
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
 
-# ECFO constraints
+#ECFO constraints
 ecfo:EmissionConversionFactorShape
     a              sh:NodeShape ;
     sh:targetClass ecfo:EmissionConversionFactor ;
@@ -62,4 +62,4 @@ qudt:QuantityShape
     sh:property    [ sh:path     qudt:hasQuantityKind ;
                      sh:class    qudt:QuantityKind ;
                      sh:severity sh:Violation ;
-                     sh:message  "Quantity's quantity kind should is not of type qudt:QuantityKind" ; ] .
+                     sh:message  "Quantity's quantity kind is not of type qudt:QuantityKind" ; ] .

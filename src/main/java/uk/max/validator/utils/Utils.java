@@ -7,12 +7,18 @@ import com.google.gson.JsonObject;
 import org.apache.jena.graph.Graph;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.riot.RDFFormat;
+import org.apache.jena.riot.RDFParser;
 import org.apache.jena.shacl.ShaclValidator;
 import org.apache.jena.shacl.Shapes;
 import org.apache.jena.shacl.ValidationReport;
+import org.apache.jena.sparql.graph.GraphFactory;
 import uk.max.validator.Model.ValidationResult;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,5 +85,20 @@ public class Utils {
         JsonArray validationResults = generateValidationResults(report);
         List<ValidationResult> responses = generateValidationResultObjects(validationResults);
         return ValidationResult.buildJsonResponse(responses);
+    }
+
+    public static Graph parseJSONLD(String jsonLDContent) {
+        InputStream inputStream = new ByteArrayInputStream(jsonLDContent.getBytes(StandardCharsets.UTF_8));
+
+        RDFParser parser = RDFParser.create()
+                .source(inputStream)
+                .lang(RDFFormat.JSONLD.getLang())
+                .base("http://example.org/base/")
+                .build();
+
+        Graph graph = GraphFactory.createDefaultGraph();
+        parser.parse(graph);
+
+        return graph;
     }
 }

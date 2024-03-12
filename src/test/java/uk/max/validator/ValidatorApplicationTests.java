@@ -303,7 +303,7 @@ class ValidatorApplicationTests {
         jsonObject = typeViolationsArray.get(0).getAsJsonObject();
         // catch error that quantity kind is of inappropriate type
         assertEquals("https://water.com/provenance/CalculationEntity/emission-score", jsonObject.get("focusNode").getAsString());
-        assertEquals("Quantity's quantity kind should is not of type qudt:QuantityKind", jsonObject.get("resultMessage").getAsString());
+        assertEquals("Quantity's quantity kind is not of type qudt:QuantityKind", jsonObject.get("resultMessage").getAsString());
         assertEquals("qudt:hasQuantityKind", jsonObject.get("resultPath").getAsString());
     }
 

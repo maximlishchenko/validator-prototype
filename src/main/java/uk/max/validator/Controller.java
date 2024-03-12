@@ -1,8 +1,6 @@
 package uk.max.validator;
 
 import com.google.gson.JsonArray;
-import org.apache.coyote.Response;
-import org.apache.jena.ext.xerces.util.URI;
 import org.apache.jena.graph.Graph;
 import org.apache.jena.irix.IRIException;
 import org.apache.jena.riot.Lang;
@@ -18,7 +16,6 @@ import uk.max.validator.Model.ValidationResult;
 import uk.max.validator.utils.Utils;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -73,7 +70,11 @@ public class Controller {
     @PostMapping("upload-and-validate")
     public ResponseEntity<String> uploadAndValidate(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("{\"message\": \"Uploaded file is empty\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"Uploaded file is empty\"}");
+        }
+        String filename = file.getOriginalFilename();
+        if (!filename.toLowerCase().endsWith(".json")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"Only .json files are accepted\"}");
         }
         try {
             byte[] bytes = file.getBytes();

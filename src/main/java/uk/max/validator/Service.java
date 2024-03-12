@@ -3,7 +3,6 @@ package uk.max.validator;
 import org.apache.jena.graph.Graph;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
-import org.springframework.http.ResponseEntity;
 import uk.max.validator.utils.Utils;
 
 import java.io.File;
