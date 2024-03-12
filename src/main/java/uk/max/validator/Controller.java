@@ -1,18 +1,23 @@
 package uk.max.validator;
 
+import com.google.gson.JsonArray;
 import org.apache.coyote.Response;
 import org.apache.jena.ext.xerces.util.URI;
+import org.apache.jena.graph.Graph;
 import org.apache.jena.irix.IRIException;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RiotNotFoundException;
+import org.apache.jena.shacl.ValidationReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import uk.max.validator.Model.ValidationResult;
+import uk.max.validator.utils.Utils;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,5 +68,28 @@ public class Controller {
     public ResponseEntity<List<String>> getFileNames() {
         List<String> fileNames = service.getFileNames();
         return ResponseEntity.ok(fileNames);
+    }
+
+    @PostMapping("upload-and-validate")
+    public ResponseEntity<String> uploadAndValidate(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("{\"message\": \"Uploaded file is empty\"}");
+        }
+        try {
+            byte[] bytes = file.getBytes();
+            String fileContent = new String(bytes);
+            Graph dataGraph = Utils.parseJSONLD(fileContent);
+            Graph rules = RDFDataMgr.loadGraph("./rules/all-constraints.ttl", Lang.TTL);
+            ValidationReport report = Utils.generateReport(rules, dataGraph);
+            if (report.conforms()) {
+                String res = "[]";
+                return ResponseEntity.ok(res);
+            }
+            JsonArray validationResults = Utils.generateValidationResults(report);
+            List<ValidationResult> responses = Utils.generateValidationResultObjects(validationResults);
+            return ResponseEntity.ok(ValidationResult.buildJsonResponse(responses));
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading uploaded file", e);
+        }
     }
 }
