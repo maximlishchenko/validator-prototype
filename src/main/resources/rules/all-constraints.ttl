@@ -223,7 +223,7 @@ sosa:ObservationShape
     sh:property    [ sh:path     peco:inEmissionActivityContext ;
                      sh:class    peco:EmissionGenerationActivity ;
                      sh:severity sh:Violation ;
-                     sh:message  "A property linking an observation to an emission generation activity is not of type peco:EmissionGenerationActivity" ; ] .
+                     sh:message  "An observation is not linked to a thing of type peco:EmissionGenerationActivity" ; ] .
 
 #QUDT constraints
 qudt:QuantityShape
