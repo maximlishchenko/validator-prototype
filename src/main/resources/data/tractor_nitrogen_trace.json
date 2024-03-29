@@ -151,7 +151,7 @@
     },
     "@graph":[
         {
-            "@id":"https://rigfertiliser.com/provenance/Observation/obs1",
+            "@id":"https://tractornitrogen.com/provenance/Observation/obs1",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Activity",
@@ -161,385 +161,371 @@
                 "https://www.wikidata.org/entity/Q5"
             ],
             "hasFeatureOfInterest":[
-                "https://rigfertiliser.com/provenance/FeatureOfInterest/foi1"
+                "https://tractornitrogen.com/provenance/FeatureOfInterest/foi1"
             ],
             "madeBySensor":"https://www.wikidata.org/wiki/Q167676",
-            "label":"Record the amount of electricity used by rig",
-            "inEmissionActivityContext":"https://rigfertiliser.com/provenance/EmissionGenerationActivity/ega1",
+            "label":"Record fuel consumption from a fuel level sensor",
+            "inEmissionActivityContext":"https://tractornitrogen.com/provenance/EmissionGenerationActivity/ega1",
             "hasResult":[
-                "https://rigfertiliser.com/provenance/CalculationEntity/smart-meter-obsresult"
+                "https://tractornitrogen.com/provenance/CalculationEntity/ObservationResult/fuel-sensor-observation-result"
             ]
         },
         {
-            "@id":"https://rigfertiliser.com/provenance/FeatureOfInterest/foi1",
+            "@id":"https://tractornitrogen.com/provenance/FeatureOfInterest/foi1",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Entity",
                 "http://www.w3.org/ns/sosa/FeatureOfInterest"
             ],
-            "label":"Irrigation rig"
+            "label":"Fuel consumption"
         },
         {
-            "@id":"https://rigfertiliser.com/provenance/EmissionGenerationActivity/ega1",
+            "@id":"https://tractornitrogen.com/provenance/EmissionGenerationActivity/ega1",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Activity",
                 "https://w3id.org/peco#EmissionGenerationActivity"
             ],
             "hasEmissionScore":[
-                "https://rigfertiliser.com/provenance/CalculationEntity/rig-emission-score"
+                "https://tractornitrogen.com/provenance/CalculationEntity/fuel-emission-score"
             ],
-            "label":"Irrigation rig operation",
+            "label":"Driving a tractor",
             "atLocation":"https://www.wikidata.org/wiki/Q145"
         },
         {
-            "@id":"https://rigfertiliser.com/provenance/CalculationEntity/smart-meter-obsresult",
+            "@id":"https://tractornitrogen.com/provenance/CalculationEntity/ObservationResult/fuel-sensor-observation-result",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "https://w3id.org/peco#EmissionCalculationEntity",
                 "http://qudt.org/schema/qudt/Quantity",
                 "http://www.w3.org/ns/sosa/Result"
             ],
-            "label":"Energy Used by the rig",
+            "label":"Fuel used by the tractor",
             "qudt_value":{
-                "@value":15.35,
+                "@value":35,
                 "@type":"xsd:float"
             },
-            "unit":"http://www.wikidata.org/entity/Q182098",
-            "hasQuantityKind":"http://www.wikidata.org/entity/Q12725"
+            "unit":"https://www.wikidata.org/entity/Q11582",
+            "hasQuantityKind":"https://www.wikidata.org/entity/Q39297"
         },
         {
-            "@id":"http://www.wikidata.org/entity/Q182098",
+            "@id":"https://www.wikidata.org/entity/Q11582",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://qudt.org/schema/qudt/Unit"
             ]
         },
         {
-            "@id":"http://www.wikidata.org/entity/Q12725",
+            "@id":"https://www.wikidata.org/entity/Q39297",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://qudt.org/schema/qudt/QuantityKind"
             ]
         },
         {
-            "@id":"https://rigfertiliser.com/provenance/CalculationEntity/entity1",
+            "@id":"https://tractornitrogen.com/provenance/diesel-cf",
+            "@type":"ecfo:EmissionConversionFactor",
+            "publisher":"https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2022",
+            "value":"2.5206",
+            "hasApplicableLocation":"https://www.wikidata.org/wiki/Q145",
+            "hasEmissionSource":"https://www.wikidata.org/entity/Q70666231",
+            "hasEmissionTarget":"https://www.wikidata.org/entity/Q1933140",
+            "hasScope":"ecfo:Scope1",
+            "hasSourceUnit":"https://www.wikidata.org/entity/Q11582",
+            "hasTag":[
+                "https://www.wikidata.org/entity/Q70666231"
+            ],
+            "hasTargetUnit":"https://www.wikidata.org/entity/Q11570"
+        },
+        {
+            "@id":"https://www.wikidata.org/entity/Q11570",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://qudt.org/schema/qudt/Unit"
+            ]
+        },
+        {
+            "@id":"https://www.wikidata.org/entity/Q1933140",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://qudt.org/schema/qudt/QuantityKind"
+            ]
+        },
+        {
+            "@id":"https://tractornitrogen.com/provenance/emission-score-calculation1",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://www.w3.org/ns/prov#Activity",
+                "https://w3id.org/peco#EmissionCalculationActivity"
+            ],
+            "wasAssociatedWith":[
+                "https://tractornitrogen.com/provenance"
+            ],
+            "label":"Fuel Consumption Emission Score Calculation",
+            "used":[
+                "https://tractornitrogen.com/provenance/CalculationEntity/ObservationResult/fuel-sensor-observation-result",
+                "https://tractornitrogen.com/provenance/diesel-cf"
+            ]
+        },
+        {
+            "@id":"https://tractornitrogen.com/provenance/CalculationEntity/fuel-emission-score",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "https://w3id.org/peco#EmissionCalculationEntity",
+                "https://w3id.org/peco#EmissionScore",
+                "http://qudt.org/schema/qudt/Quantity"
+            ],
+            "label":"Emission Score Of Fuel Consumption",
+            "qudt_value":{
+                "@value":88.221,
+                "@type":"xsd:float"
+            },
+            "unit":"https://www.wikidata.org/entity/Q11570",
+            "hasQuantityKind":"https://www.wikidata.org/entity/Q1933140",
+            "wasGeneratedBy":[
+                "https://tractornitrogen.com/provenance/emission-score-calculation1"
+            ]
+        },
+        {
+            "@id":"https://tractornitrogen.com/provenance/Observation/obs2",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://www.w3.org/ns/prov#Activity",
+                "http://www.w3.org/ns/sosa/Observation"
+            ],
+            "wasAssociatedWith":[
+                "https://www.wikidata.org/entity/Q5"
+            ],
+            "hasFeatureOfInterest":[
+                "https://tractornitrogen.com/provenance/FeatureOfInterest/foi2"
+            ],
+            "madeBySensor":"https://www.wikidata.org/wiki/Q5",
+            "label":"Observe the amount of fertiliser mixture used",
+            "inEmissionActivityContext":"https://tractornitrogen.com/provenance/EmissionGenerationActivity/ega2",
+            "hasResult":[
+                "https://tractornitrogen.com/provenance/CalculationEntity/ObservationResult/mixture-observation-result"
+            ]
+        },
+        {
+            "@id":"https://tractornitrogen.com/provenance/FeatureOfInterest/foi2",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://www.w3.org/ns/prov#Entity",
+                "http://www.w3.org/ns/sosa/FeatureOfInterest"
+            ],
+            "label":"Fertiliser mixed with water"
+        },
+        {
+            "@id":"https://tractornitrogen.com/provenance/EmissionGenerationActivity/ega2",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://www.w3.org/ns/prov#Activity",
+                "https://w3id.org/peco#EmissionGenerationActivity"
+            ],
+            "hasEmissionScore":[
+                "https://tractornitrogen.com/provenance/CalculationEntity/fertiliser-emission-score"
+            ],
+            "label":"Application of fertiliser mixture by the tractor",
+            "atLocation":"https://www.wikidata.org/wiki/Q145"
+        },
+        {
+            "@id":"https://tractornitrogen.com/provenance/CalculationEntity/ObservationResult/mixture-observation-result",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "https://w3id.org/peco#EmissionCalculationEntity",
+                "http://qudt.org/schema/qudt/Quantity",
+                "http://www.w3.org/ns/sosa/Result"
+            ],
+            "label":"Litres of fertiliser mixture applied",
+            "qudt_value":{
+                "@value":4528,
+                "@type":"xsd:float"
+            },
+            "unit":"https://www.wikidata.org/entity/Q11582",
+            "hasQuantityKind":"https://www.wikidata.org/entity/Q39297"
+        },
+        {
+            "@id":"https://tractornitrogen.com/provenance/nitrogen-cf",
+            "@type":"ecfo:EmissionConversionFactor",
+            "publisher":"https://www.fertilizerseurope.com/publications/the-carbon-footprint-of-fertilizer-production-regional-reference-values/",
+            "value":"3.319",
+            "hasApplicableLocation":"https://www.wikidata.org/wiki/Q145",
+            "hasEmissionSource":"https://www.wikidata.org/wiki/Q1408226",
+            "hasEmissionTarget":"https://www.wikidata.org/entity/Q1933140",
+            "hasScope":"ecfo:Scope2",
+            "hasSourceUnit":"https://www.wikidata.org/entity/Q11570",
+            "hasTag":[
+                "https://www.wikidata.org/wiki/Q1408226"
+            ],
+            "hasTargetUnit":"https://www.wikidata.org/entity/Q11570"
+        },
+        {
+            "@id":"https://tractornitrogen.com/provenance/CalculationEntity/entity1",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "https://w3id.org/peco#EmissionCalculationEntity"
             ],
             "label":"Litres of fertiliser used per 1000 litres of water",
             "qudt_value":{
-                "@value":1.25,
+                "@value":1.1,
                 "@type":"xsd:float"
             }
         },
         {
-            "@id":"http://www.wikidata.org/wiki/Q11582",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://qudt.org/schema/qudt/Unit"
-            ]
-        },
-        {
-            "@id":"https://www.wikidata.org/wiki/Q39297",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://qudt.org/schema/qudt/QuantityKind"
-            ]
-        },
-        {
-            "@id":"https://rigfertiliser.com/provenance/Observation/obs2",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://www.w3.org/ns/prov#Activity",
-                "http://www.w3.org/ns/sosa/Observation"
-            ],
-            "wasAssociatedWith":[
-                "https://www.wikidata.org/entity/Q5"
-            ],
-            "hasFeatureOfInterest":[
-                "https://rigfertiliser.com/provenance/FeatureOfInterest/foi2"
-            ],
-            "madeBySensor":"https://www.wikidata.org/entity/Q5",
-            "label":"Observe the amount of water used by the rig",
-            "inEmissionActivityContext":"https://rigfertiliser.com/provenance/EmissionGenerationActivity/ega2",
-            "hasResult":[
-                "https://rigfertiliser.com/provenance/CalculationEntity/water-obsresult"
-            ]
-        },
-        {
-            "@id":"https://rigfertiliser.com/provenance/FeatureOfInterest/foi2",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://www.w3.org/ns/prov#Entity",
-                "http://www.w3.org/ns/sosa/FeatureOfInterest"
-            ],
-            "label":"Water used by the rig"
-        },
-        {
-            "@id":"https://rigfertiliser.com/provenance/EmissionGenerationActivity/ega2",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://www.w3.org/ns/prov#Activity",
-                "https://w3id.org/peco#EmissionGenerationActivity"
-            ],
-            "hasEmissionScore":[
-                "https://rigfertiliser.com/provenance/CalculationEntity/fertiliser-emission-score"
-            ],
-            "label":"Fertiliser mixture use by the rig",
-            "atLocation":"https://www.wikidata.org/wiki/Q145"
-        },
-        {
-            "@id":"https://rigfertiliser.com/provenance/CalculationEntity/water-obsresult",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "https://w3id.org/peco#EmissionCalculationEntity",
-                "http://qudt.org/schema/qudt/Quantity",
-                "http://www.w3.org/ns/sosa/Result"
-            ],
-            "label":"Litres of water used by the rig",
-            "qudt_value":{
-                "@value":5500,
-                "@type":"xsd:float"
-            },
-            "unit":"http://www.wikidata.org/wiki/Q11582",
-            "hasQuantityKind":"https://www.wikidata.org/wiki/Q39297"
-        },
-        {
-            "@id":"http://www.wikidata.org/entity/Q1933140",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://qudt.org/schema/qudt/QuantityKind"
-            ]
-        },
-        {
-            "@id":"http://www.wikidata.org/entity/Q11570",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://qudt.org/schema/qudt/Unit"
-            ]
-        },
-        {
-            "@id":"https://rigfertiliser.com/provenance/cf1",
-            "@type":"ecfo:EmissionConversionFactor",
-            "publisher":"https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2022",
-            "value":"0.1912",
-            "hasApplicableLocation":"https://www.wikidata.org/wiki/Q145",
-            "hasEmissionSource":"http://www.wikidata.org/entity/Q12725",
-            "hasEmissionTarget":"http://www.wikidata.org/entity/Q1933140",
-            "hasScope":"ecfo:Scope2",
-            "hasSourceUnit":"http://www.wikidata.org/entity/Q182098",
-            "hasTag":[
-                "https://www.wikidata.org/entity/Q12725"
-            ],
-            "hasTargetUnit":"http://www.wikidata.org/entity/Q11570"
-        },
-        {
-            "@id":"https://rigfertiliser.com/provenance/emission-score-calculation1",
+            "@id":"https://tractornitrogen.com/provenance/calculation-activity1",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Activity",
                 "https://w3id.org/peco#EmissionCalculationActivity"
             ],
             "wasAssociatedWith":[
-                "https://rigfertiliser.com/provenance"
-            ],
-            "label":"Rig Operation Emission Score Calculation",
-            "used":[
-                "https://rigfertiliser.com/provenance/CalculationEntity/smart-meter-obsresult",
-                "https://rigfertiliser.com/provenance/cf1"
-            ]
-        },
-        {
-            "@id":"https://rigfertiliser.com/provenance/CalculationEntity/rig-emission-score",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "https://w3id.org/peco#EmissionCalculationEntity",
-                "https://w3id.org/peco#EmissionScore",
-                "http://qudt.org/schema/qudt/Quantity"
-            ],
-            "label":"Emission Score Of Rig Usage",
-            "qudt_value":{
-                "@value":2.935,
-                "@type":"xsd:float"
-            },
-            "unit":"http://www.wikidata.org/entity/Q11570",
-            "hasQuantityKind":"http://www.wikidata.org/entity/Q1933140",
-            "wasGeneratedBy":[
-                "https://rigfertiliser.com/provenance/emission-score-calculation1"
-            ]
-        },
-        {
-            "@id":"https://rigfertiliser.com/provenance/emission-calculation-activity1",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://www.w3.org/ns/prov#Activity",
-                "https://w3id.org/peco#EmissionCalculationActivity"
-            ],
-            "wasAssociatedWith":[
-                "https://rigfertiliser.com/provenance"
+                "https://tractornitrogen.com/provenance"
             ],
             "label":"Calculate litres of fertiliser used",
             "used":[
-                "https://rigfertiliser.com/provenance/CalculationEntity/entity1",
-                "https://rigfertiliser.com/provenance/CalculationEntity/water-obsresult"
+                "https://tractornitrogen.com/provenance/CalculationEntity/entity1",
+                "https://tractornitrogen.com/provenance/CalculationEntity/ObservationResult/mixture-observation-result"
             ]
         },
         {
-            "@id":"https://rigfertiliser.com/provenance/CalculationEntity/entity2",
+            "@id":"https://tractornitrogen.com/provenance/CalculationEntity/entity2",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "https://w3id.org/peco#EmissionCalculationEntity",
                 "http://qudt.org/schema/qudt/Quantity"
             ],
-            "label":"Litres of fertiliser used",
+            "label":"Litres of nitrogen fertiliser used",
             "qudt_value":{
-                "@value":6.875,
+                "@value":4.9808,
                 "@type":"xsd:float"
             },
-            "unit":"http://www.wikidata.org/wiki/Q11582",
-            "hasQuantityKind":"https://www.wikidata.org/wiki/Q39297",
+            "unit":"https://www.wikidata.org/entity/Q11582",
+            "hasQuantityKind":"https://www.wikidata.org/entity/Q39297",
             "wasGeneratedBy":[
-                "https://rigfertiliser.com/provenance/emission-calculation-activity1"
+                "https://tractornitrogen.com/provenance/calculation-activity1"
             ]
         },
         {
-            "@id":"https://rigfertiliser.com/provenance/cf2",
-            "@type":"ecfo:EmissionConversionFactor",
-            "publisher":"https://www.researchgate.net/publication/312553933_Carbon_footprint_analysis_of_mineral_fertilizer_production_in_Europe_and_other_world_regions",
-            "value":"1.4",
-            "hasApplicableLocation":"https://www.wikidata.org/wiki/Q145",
-            "hasEmissionSource":"https://www.wikidata.org/wiki/Q1408226",
-            "hasEmissionTarget":"http://www.wikidata.org/entity/Q1933140",
-            "hasScope":"ecfo:Scope2",
-            "hasSourceUnit":"http://www.wikidata.org/entity/Q11570",
-            "hasTag":[
-                "https://www.wikidata.org/wiki/Q1408226"
-            ],
-            "hasTargetUnit":"http://www.wikidata.org/entity/Q11570"
-        },
-        {
-            "@id":"https://rigfertiliser.com/provenance/CalculationEntity/entity3",
+            "@id":"https://tractornitrogen.com/provenance/CalculationEntity/entity3",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "https://w3id.org/peco#EmissionCalculationEntity"
             ],
-            "label":"Density of the fertiliser used (potassium chloride)",
+            "label":"Density of the fertiliser used (ammonium nitrate)",
             "qudt_value":{
-                "@value":2.35,
+                "@value":1.72,
                 "@type":"xsd:float"
             }
         },
         {
-            "@id":"https://rigfertiliser.com/provenance/emission-calculation-activity2",
+            "@id":"https://tractornitrogen.com/provenance/calculation-activity2",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Activity",
                 "https://w3id.org/peco#EmissionCalculationActivity"
             ],
             "wasAssociatedWith":[
-                "https://rigfertiliser.com/provenance"
+                "https://tractornitrogen.com/provenance"
             ],
-            "label":"Convert litres of fertiliser to kilograms",
+            "label":"Calculate mass of fertiliser used",
             "used":[
-                "https://rigfertiliser.com/provenance/CalculationEntity/entity2",
-                "https://rigfertiliser.com/provenance/CalculationEntity/entity3"
+                "https://tractornitrogen.com/provenance/CalculationEntity/entity2",
+                "https://tractornitrogen.com/provenance/CalculationEntity/entity3"
             ]
         },
         {
-            "@id":"https://rigfertiliser.com/provenance/CalculationEntity/entity4",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "https://w3id.org/peco#EmissionCalculationEntity",
-                "http://qudt.org/schema/qudt/Quantity"
-            ],
-            "label":"Kilograms of fertiliser used",
-            "qudt_value":{
-                "@value":16.1566,
-                "@type":"xsd:float"
-            },
-            "unit":"http://www.wikidata.org/entity/Q11570",
-            "hasQuantityKind":"http://www.wikidata.org/wiki/Q11423",
-            "wasGeneratedBy":[
-                "https://rigfertiliser.com/provenance/emission-calculation-activity2"
-            ]
-        },
-        {
-            "@id":"http://www.wikidata.org/wiki/Q11423",
+            "@id":"https://www.wikidata.org/entity/Q11423",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://qudt.org/schema/qudt/QuantityKind"
             ]
         },
         {
-            "@id":"https://rigfertiliser.com/provenance/emission-score-calculation2",
+            "@id":"https://tractornitrogen.com/provenance/CalculationEntity/entity4",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "https://w3id.org/peco#EmissionCalculationEntity",
+                "http://qudt.org/schema/qudt/Quantity"
+            ],
+            "label":"Kilograms of nitrogen fertiliser used",
+            "qudt_value":{
+                "@value":8.5670,
+                "@type":"xsd:float"
+            },
+            "unit":"https://www.wikidata.org/entity/Q11570",
+            "hasQuantityKind":"https://www.wikidata.org/entity/Q11423",
+            "wasGeneratedBy":[
+                "https://tractornitrogen.com/provenance/calculation-activity2"
+            ]
+        },
+        {
+            "@id":"https://tractornitrogen.com/provenance/emission-score-calculation2",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Activity",
                 "https://w3id.org/peco#EmissionCalculationActivity"
             ],
             "wasAssociatedWith":[
-                "https://rigfertiliser.com/provenance"
+                "https://tractornitrogen.com/provenance"
             ],
             "label":"Fertiliser Usage Emission Score Calculation",
             "used":[
-                "https://rigfertiliser.com/provenance/cf2",
-                "https://rigfertiliser.com/provenance/CalculationEntity/entity4"
+                "https://tractornitrogen.com/provenance/CalculationEntity/entity4",
+                "https://tractornitrogen.com/provenance/nitrogen-cf"
             ]
         },
         {
-            "@id":"https://rigfertiliser.com/provenance/CalculationEntity/fertiliser-emission-score",
+            "@id":"https://tractornitrogen.com/provenance/CalculationEntity/fertiliser-emission-score",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "https://w3id.org/peco#EmissionCalculationEntity",
                 "https://w3id.org/peco#EmissionScore",
                 "http://qudt.org/schema/qudt/Quantity"
             ],
-            "label":"Emission Score Of Fertiliser Usage",
+            "label":"Emission Score Of Fertiliser Application",
             "qudt_value":{
-                "@value":22.6192,
+                "@value":28.4339,
                 "@type":"xsd:float"
             },
-            "unit":"http://www.wikidata.org/entity/Q11570",
-            "hasQuantityKind":"http://www.wikidata.org/entity/Q1933140",
+            "unit":"https://www.wikidata.org/entity/Q11570",
+            "hasQuantityKind":"https://www.wikidata.org/entity/Q1933140",
             "wasGeneratedBy":[
-                "https://rigfertiliser.com/provenance/emission-score-calculation2"
+                "https://tractornitrogen.com/provenance/emission-score-calculation2"
             ]
         },
         {
-            "@id":"https://rigfertiliser.com/provenance/emission-calculation-activity3",
+            "@id":"https://tractornitrogen.com/provenance/calculation-activity3",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Activity",
                 "https://w3id.org/peco#EmissionCalculationActivity"
             ],
             "wasAssociatedWith":[
-                "https://rigfertiliser.com/provenance"
+                "https://tractornitrogen.com/provenance"
             ],
-            "label":"Calculate the total emission score",
+            "label":"Calculate final emission score",
             "used":[
-                "https://rigfertiliser.com/provenance/CalculationEntity/rig-emission-score",
-                "https://rigfertiliser.com/provenance/CalculationEntity/fertiliser-emission-score"
+                "https://tractornitrogen.com/provenance/CalculationEntity/fuel-emission-score",
+                "https://tractornitrogen.com/provenance/CalculationEntity/fertiliser-emission-score"
             ]
         },
         {
-            "@id":"https://rigfertiliser.com/provenance/CalculationEntity/total-emission-score",
+            "@id":"https://tractornitrogen.com/provenance/CalculationEntity/final-emission-score",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "https://w3id.org/peco#EmissionCalculationEntity",
                 "https://w3id.org/peco#EmissionScore",
                 "http://qudt.org/schema/qudt/Quantity"
             ],
-            "label":"Total emission score of irrigation rig operation that uses fertiliser",
+            "label":"Final emission score of tractor that applies nitrogen fertiliser",
             "qudt_value":{
-                "@value":25.5542,
+                "@value":116.6549,
                 "@type":"xsd:float"
             },
-            "unit":"http://www.wikidata.org/entity/Q11570",
-            "hasQuantityKind":"http://www.wikidata.org/entity/Q1933140",
+            "unit":"https://www.wikidata.org/entity/Q11570",
+            "hasQuantityKind":"https://www.wikidata.org/entity/Q1933140",
             "wasGeneratedBy":[
-                "https://rigfertiliser.com/provenance/emission-calculation-activity3"
+                "https://tractornitrogen.com/provenance/calculation-activity3"
             ]
         }
     ]

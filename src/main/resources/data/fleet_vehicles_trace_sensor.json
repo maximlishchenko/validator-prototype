@@ -248,7 +248,7 @@
             ],
             "label":"Emission Score",
             "qudt_value":{
-                "@value":315.1125,
+                "@value":315.075,
                 "@type":"xsd:float"
             },
             "unit":"https://www.wikidata.org/entity/Q11570",
@@ -275,7 +275,7 @@
             "@id":"https://fleetvehicles.com/provenance/cf",
             "@type":"ecfo:EmissionConversionFactor",
             "publisher":"https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2022",
-            "value":"2.5209",
+            "value":"2.5206",
             "hasApplicableLocation":"https://www.wikidata.org/wiki/Q145",
             "hasEmissionSource":"https://www.wikidata.org/entity/Q70666231",
             "hasEmissionTarget":"https://www.wikidata.org/entity/Q1933140",
