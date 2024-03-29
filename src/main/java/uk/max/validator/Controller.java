@@ -5,6 +5,7 @@ import org.apache.jena.graph.Graph;
 import org.apache.jena.irix.IRIException;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.riot.RiotException;
 import org.apache.jena.riot.RiotNotFoundException;
 import org.apache.jena.shacl.ValidationReport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,8 @@ public class Controller {
             return ResponseEntity.ok(ValidationResult.buildJsonResponse(responses));
         } catch (IOException e) {
             throw new RuntimeException("Error reading uploaded file", e);
+        } catch (RiotException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"Error parsing the file\"}");
         }
     }
 }

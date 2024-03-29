@@ -5,10 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.apache.jena.graph.Graph;
-import org.apache.jena.riot.Lang;
-import org.apache.jena.riot.RDFDataMgr;
-import org.apache.jena.riot.RDFFormat;
-import org.apache.jena.riot.RDFParser;
+import org.apache.jena.riot.*;
 import org.apache.jena.shacl.ShaclValidator;
 import org.apache.jena.shacl.Shapes;
 import org.apache.jena.shacl.ValidationReport;
@@ -37,7 +34,6 @@ public class Utils {
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(reportData, JsonObject.class);
         JsonArray graph = jsonObject.getAsJsonArray("@graph"); // access the graph array
-
         JsonArray validationResults = new JsonArray();
 
         // iterate through the graph array
