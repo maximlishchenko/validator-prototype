@@ -672,4 +672,76 @@ class ValidatorApplicationTests {
         // expect peco:inEmissionActivityContext to appear once, as there is 1 obs, and 1 error related to the linked EGA
         assertEquals(1, resultPathCount.get("peco:inEmissionActivityContext"));
     }
+
+    @Test
+    public void validateTractorNitrogenTrace() {
+        // expect the trace to be valid
+        assertEquals("[]", Service.validateCardinality("tractor_nitrogen_trace"));
+        assertEquals("[]", Service.validateType("tractor_nitrogen_trace"));
+        assertEquals("[]", Service.validateSparql("tractor_nitrogen_trace"));
+    }
+
+    @Test
+    public void validateTractorNitrogenTraceInvalidCardinality() {
+        // expect violations in: Constraints 1.8, 2.9, 2.10, 3.7
+
+        // introduced the following errors:
+        // 1) Make obs1 have 2 FOIs: foi1 and foi2 (2.9)
+        // 2) Make obs2 have 2 FOIs: foi1 and foi2 (2.9)
+        // 3) make entity1 value negative (3.7)
+        // 4) Make obs1 be linked to ega1 AND a CF (1.8, 2.10)
+
+        // test cardinality constraints
+        String cardinalityRes = Service.validateCardinality("tractor_nitrogen_trace_invalid_cardinality");
+        JsonArray cardinalityJsonArray = new Gson().fromJson(cardinalityRes, JsonArray.class);
+        // expect 3 violations, 2.10 once and 2.9 two times
+        assertEquals(3, cardinalityJsonArray.size());
+
+        Map<String, Integer> cardinalityPathCount = new HashMap<>();
+        Map<String, Integer> cardinalityFocusNodeCount = new HashMap<>();
+
+        for (JsonElement element : cardinalityJsonArray) {
+            JsonObject jsonObject = element.getAsJsonObject();
+
+            // keep track of present result paths
+            String resultPath = jsonObject.get("resultPath").getAsString();
+            cardinalityPathCount.put(resultPath, cardinalityPathCount.getOrDefault(resultPath, 0) + 1);
+            // keep track of present focus nodes
+            String focusNode = jsonObject.get("focusNode").getAsString();
+            cardinalityFocusNodeCount.put(focusNode, cardinalityFocusNodeCount.getOrDefault(focusNode, 0) + 1);
+        }
+
+        // expect obs1 to appear 2 times
+        assertEquals(2, cardinalityFocusNodeCount.get("https://tractornitrogen.com/provenance/Observation/obs1")); // (2.9, 2.10)
+        // expect obs2 to appear once
+        assertEquals(1, cardinalityFocusNodeCount.get("https://tractornitrogen.com/provenance/Observation/obs2")); // (2.9)
+        // expect sosa:hasFeatureOfInterest to appear twice
+        assertEquals(2, cardinalityPathCount.get("sosa:hasFeatureOfInterest")); // (2.9 twice)
+        // expect peco:inEmissionActivityContext to appear once
+        assertEquals(1, cardinalityPathCount.get("peco:inEmissionActivityContext")); // (2.10)
+
+        // test type constraints
+        String typeRes = Service.validateType("tractor_nitrogen_trace_invalid_cardinality");
+        JsonArray jsonArray = new Gson().fromJson(typeRes, JsonArray.class);
+        // expect 1 type violation (obs linked to ECF instead of EGA)
+        assertEquals(1, jsonArray.size());
+        JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+        // expect path to be peco:inEmissionActivityContext
+        assertEquals("peco:inEmissionActivityContext", jsonObject.get("resultPath").getAsString());
+        // expect violation and not a warning
+        assertEquals("sh:Violation", jsonObject.get("resultSeverity").getAsString());
+
+        // test sparql constraints
+        String sparqlRes = Service.validateSparql("tractor_nitrogen_trace_invalid_cardinality");
+        jsonArray = new Gson().fromJson(sparqlRes, JsonArray.class);
+        // expect 1 sparql violation (negative value of entity)
+        assertEquals(1, jsonArray.size());
+        jsonObject = jsonArray.get(0).getAsJsonObject();
+        // expect path to be qudt:value
+        assertEquals("qudt:value", jsonObject.get("resultPath").getAsString());
+        // expect warning and not violation
+        assertEquals("sh:Warning", jsonObject.get("resultSeverity").getAsString());
+        // expect the focus node to be id of entity1 as this is where error was introduced
+        assertEquals("https://tractornitrogen.com/provenance/CalculationEntity/entity1", jsonObject.get("focusNode").getAsString());
+    }
 }
