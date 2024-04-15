@@ -27,18 +27,24 @@ public class Utils {
         return report;
     }
 
+    // method to retrieve unformatted validation results from a report
     public static JsonArray generateValidationResults(ValidationReport report) {
         StringWriter stringWriter = new StringWriter();
+        // retrieve the model from the report
         RDFDataMgr.write(stringWriter, report.getModel(), Lang.JSONLD);
-        String reportData = stringWriter.toString();
+        String reportData = stringWriter.toString(); // convert report data to string
+
+        // convert to json array
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(reportData, JsonObject.class);
+
         JsonArray graph = jsonObject.getAsJsonArray("@graph"); // access the graph array
         JsonArray validationResults = new JsonArray();
 
         // iterate through the graph array
         for (JsonElement element : graph) {
             JsonObject graphObject = element.getAsJsonObject();
+            // only access validation results from the report, other information is irrelevant
             if (graphObject.has("@type")) {
                 String type = graphObject.get("@type").getAsString();
                 if (type.equals("sh:ValidationResult")) {
@@ -49,6 +55,7 @@ public class Utils {
         return validationResults;
     }
 
+    // method to generate ValidationResult from unformatted results
     public static List<ValidationResult> generateValidationResultObjects(JsonArray validationResults) {
         List<ValidationResult> responses = new ArrayList<>();
 
@@ -67,9 +74,13 @@ public class Utils {
         return responses;
     }
 
+    // main method to validate a trace by applying rule set
     public static String validate(String provenanceTraceName, Graph rules) {
+        // build path to provenance trace
         String provenanceTracePath = "data/" + provenanceTraceName + ".json";
+        // load internal representation of the trace (graph) into memory
         Graph dataGraph = RDFDataMgr.loadGraph(provenanceTracePath, Lang.JSONLD);
+        // generate the validation report
         ValidationReport report = generateReport(rules, dataGraph);
 
         if (report.conforms()) {
@@ -77,21 +88,25 @@ public class Utils {
             String res = "[]";
             return res;
         }
-        // else ...
+        // else call functions to generate validation resultst
         JsonArray validationResults = generateValidationResults(report);
         List<ValidationResult> responses = generateValidationResultObjects(validationResults);
+        // build a json response to be sent to client
         return ValidationResult.buildJsonResponse(responses);
     }
 
+    // method to build a graph from given provenance trace json-ld content
     public static Graph parseJSONLD(String jsonLDContent) {
         InputStream inputStream = new ByteArrayInputStream(jsonLDContent.getBytes(StandardCharsets.UTF_8));
 
+        // create a parser for json-ld
         RDFParser parser = RDFParser.create()
                 .source(inputStream)
                 .lang(RDFFormat.JSONLD.getLang())
                 .base("http://example.org/base/")
                 .build();
 
+        // build a default graph and parse it, given the json-ld content
         Graph graph = GraphFactory.createDefaultGraph();
         parser.parse(graph);
 

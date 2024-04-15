@@ -2,7 +2,9 @@ package uk.max.validator.Model;
 
 import java.util.List;
 
+// class that represents a validation results with only needed fields
 public class ValidationResult {
+    // make fields private
     private String id;
     private String focusNode;
     private String resultMessage;
@@ -12,6 +14,7 @@ public class ValidationResult {
     public ValidationResult() {
     }
 
+    // constructor
     public ValidationResult(String id, String focusNode, String resultMessage, String resultPath, String resultSeverity) {
         this.id = id;
         this.focusNode = focusNode;
@@ -20,6 +23,7 @@ public class ValidationResult {
         this.resultSeverity = resultSeverity;
     }
 
+    // getters and setters
     public String getId() {
         return id;
     }
@@ -71,9 +75,11 @@ public class ValidationResult {
                 '}';
     }
 
+    // method to build a json response consisting of ValidationResult objects
     public static String buildJsonResponse(List<ValidationResult> validationResults) {
-        StringBuilder json = new StringBuilder("[");
+        StringBuilder json = new StringBuilder("["); // open json array
         for (ValidationResult result : validationResults) {
+            // build the string according to json syntax
             json.append("{")
                     .append("\"@id\": ").append(result.getId()).append(", ")
                     .append("\"focusNode\": ").append(result.getFocusNode()).append(", ")
@@ -82,11 +88,11 @@ public class ValidationResult {
                     .append("\"resultPath\": ").append(result.getResultPath()).append("")
                     .append("},");
         }
-        // Remove the trailing comma and close the array
+        // remove the trailing comma
         if (json.charAt(json.length() - 1) == ',') {
             json.deleteCharAt(json.length() - 1);
         }
-        json.append("]");
+        json.append("]"); // close the array
         return json.toString();
     }
 }

@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class EndpointTests {
 
+    // dependency injection
     @InjectMocks
     private Controller controller;
 
