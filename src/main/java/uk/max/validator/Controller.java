@@ -20,6 +20,7 @@ import java.io.*;
 import java.util.List;
 
 
+@org.springframework.stereotype.Controller
 @RestController
 public class Controller {
 

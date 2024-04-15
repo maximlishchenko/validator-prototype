@@ -151,7 +151,7 @@
     },
     "@graph":[
         {
-            "@id":"https://cacl2.com/provenance/Observation/obs1",
+            "@id":"https://fleetvehicles.com/provenance/Observation/cost-observation",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Activity",
@@ -161,211 +161,140 @@
                 "https://www.wikidata.org/entity/Q5"
             ],
             "hasFeatureOfInterest":[
-                "https://cacl2.com/provenance/FeatureOfInterest/foi1"
+                "https://fleetvehicles.com/provenance/EmissionGenerationActivity/ega1"
             ],
             "madeBySensor":"https://www.wikidata.org/entity/Q5",
-            "label":"Observe the amount of calcium chloride used in brewing process",
-            "inEmissionActivityContext":"https://cacl2.com/provenance/EmissionGenerationActivity/ega1",
+            "label":"Observe the amount of money spent on fuel",
+            "inEmissionActivityContext":"https://fleetvehicles.com/provenance/EmissionGenerationActivity/ega1",
             "hasResult":[
-                "https://cacl2.com/provenance/CalculationEntity/ObservationResult/obsresult1"
+                "https://fleetvehicles.com/provenance/CalculationEntity/ObservationResult/cost-observation-result"
             ]
         },
         {
-            "@id":"https://cacl2.com/provenance/FeatureOfInterest/foi1",
+            "@id":"https://fleetvehicles.com/provenance/EmissionGenerationActivity/ega1",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://www.w3.org/ns/prov#Activity"
+            ],
+            "hasEmissionScore":[
+                "https://fleetvehicles.com/provenance/CalculationEntity/emission-score"
+            ],
+            "label":"Driving fleet vehicles",
+            "atLocation":"https://www.wikidata.org/wiki/Q145"
+        },
+        {
+            "@id":"https://fleetvehicles.com/provenance/FeatureOfInterest/foi1",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Entity",
                 "http://www.w3.org/ns/sosa/FeatureOfInterest"
             ],
-            "label":"Calcium chloride usage"
+            "label":"Fuel consumption"
         },
         {
-            "@id":"https://cacl2.com/provenance/EmissionGenerationActivity/ega1",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://www.w3.org/ns/prov#Activity",
-                "https://w3id.org/peco#EmissionGenerationActivity"
-            ],
-            "hasEmissionScore":[
-                "https://cacl2.com/provenance/CalculationEntity/emission-score"
-            ],
-            "label":"Usage of calcium chloride in brewing process",
-            "atLocation":"https://www.wikidata.org/wiki/Q145"
-        },
-        {
-            "@id":"https://cacl2.com/provenance/CalculationEntity/ObservationResult/obsresult1",
+            "@id":"https://fleetvehicles.com/provenance/CalculationEntity/ObservationResult/cost-observation-result",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "https://w3id.org/peco#EmissionCalculationEntity",
-                "http://qudt.org/schema/qudt/Quantity",
-                "http://www.w3.org/ns/sosa/Result"
+                "http://qudt.org/schema/qudt/Quantity"
             ],
-            "label":"Grams of calcium chloride used per litre of brewing water",
-            "qudt_value":{
-                "@value":0.5,
-                "@type":"xsd:float"
-            },
-            "unit":"https://www.wikidata.org/entity/Q41803",
-            "hasQuantityKind":"https://www.wikidata.org/wiki/Q11423"
+            "label":"Money spent on fuel",
+            "qudt_value":187.5,
+            "unit":"https://www.wikidata.org/entity/Q25224",
+            "hasQuantityKind":"https://www.wikidata.org/entity/Q8142"
         },
         {
-            "@id":"https://www.wikidata.org/entity/Q41803",
+            "@id":"https://www.wikidata.org/entity/Q25224",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://qudt.org/schema/qudt/Unit"
             ]
         },
         {
-            "@id":"https://www.wikidata.org/wiki/Q11423",
+            "@id":"https://www.wikidata.org/entity/Q8142",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://qudt.org/schema/qudt/QuantityKind"
             ]
         },
         {
-            "@id":"https://www.wikidata.org/wiki/Q2356542",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://qudt.org/schema/qudt/QuantityKind"
-            ]
-        },
-        {
-            "@id":"http://www.wikidata.org/entity/Q1933140",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://qudt.org/schema/qudt/QuantityKind"
-            ]
-        },
-        {
-            "@id":"https://cacl2.com/provenance/CalculationEntity/total-water",
+            "@id":"https://fleetvehicles.com/provenance/CalculationEntity/entity1",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "https://w3id.org/peco#EmissionCalculationEntity",
                 "http://qudt.org/schema/qudt/Quantity"
             ],
-            "label":"Litres of water used per litre of beer",
+            "label":"Price of fuel per one litre",
             "qudt_value":{
-                "@value":5.92,
+                "@value":1.5,
                 "@type":"xsd:float"
-            },
-            "unit":"https://www.wikidata.org/wiki/Q11582",
-            "hasQuantityKind":"https://www.wikidata.org/wiki/Q39297"
+            }
         },
         {
-            "@id":"https://www.wikidata.org/wiki/Q11582",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://qudt.org/schema/qudt/Unit"
-            ]
-        },
-        {
-            "@id":"https://www.wikidata.org/wiki/Q39297",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://qudt.org/schema/qudt/QuantityKind"
-            ]
-        },
-        {
-            "@id":"https://cacl2.com/provenance/CalculationEntity/waste-water",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "https://w3id.org/peco#EmissionCalculationEntity",
-                "http://qudt.org/schema/qudt/Quantity"
-            ],
-            "label":"Litres of waste water used per litre of beer",
-            "qudt_value":{
-                "@value":4.29,
-                "@type":"xsd:float"
-            },
-            "unit":"https://www.wikidata.org/wiki/Q11582",
-            "hasQuantityKind":"https://www.wikidata.org/wiki/Q39297"
-        },
-        {
-            "@id":"https://cacl2.com/provenance/calculation-activity1",
+            "@id":"https://fleetvehicles.com/provenance/calculation-activity1",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Activity",
                 "https://w3id.org/peco#EmissionCalculationActivity"
             ],
             "wasAssociatedWith":[
-                "https://doi.org/10.1016/j.jclepro.2023.140181"
+                "https://fleetvehicles.com/provenance"
             ],
-            "label":"Subtract waste water from total water usage",
+            "label":"Calculate the amount of fuel used",
             "used":[
-                "https://cacl2.com/provenance/CalculationEntity/total-water",
-                "https://cacl2.com/provenance/CalculationEntity/waste-water"
+                "https://fleetvehicles.com/provenance/CalculationEntity/ObservationResult/cost-observation-result",
+                "https://fleetvehicles.com/provenance/CalculationEntity/entity1"
             ]
         },
         {
-            "@id":"https://cacl2.com/provenance/CalculationEntity/entity1",
+            "@id":"https://fleetvehicles.com/provenance/CalculationEntity/entity2",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "https://w3id.org/peco#EmissionCalculationEntity",
                 "http://qudt.org/schema/qudt/Quantity"
             ],
-            "label":"Water that is relevant to calcium chloride use",
+            "label":"Fuel used by vehicles",
             "qudt_value":{
-                "@value":1.63,
+                "@value":125,
                 "@type":"xsd:float"
             },
-            "unit":"https://www.wikidata.org/wiki/Q11582",
-            "hasQuantityKind":"https://www.wikidata.org/wiki/Q39297",
+            "unit":"https://www.wikidata.org/entity/Q11582",
+            "hasQuantityKind":"https://www.wikidata.org/entity/Q39297",
             "wasGeneratedBy":[
-                "https://cacl2.com/provenance/calculation-activity1"
+                "https://fleetvehicles.com/provenance/calculation-activity1"
             ]
         },
         {
-            "@id":"https://cacl2.com/provenance/calculation-activity2",
+            "@id":"https://www.wikidata.org/entity/Q11582",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual"
+            ]
+        },
+        {
+            "@id":"https://www.wikidata.org/entity/Q39297",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://qudt.org/schema/qudt/QuantityKind"
+            ]
+        },
+        {
+            "@id":"https://fleetvehicles.com/provenance/emission-score-calculation",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "http://www.w3.org/ns/prov#Activity",
                 "https://w3id.org/peco#EmissionCalculationActivity"
             ],
             "wasAssociatedWith":[
-                "https://doi.org/10.1016/j.jclepro.2023.140181"
+                "https://fleetvehicles.com/provenance"
             ],
-            "label":"Multiply relevant water usage by calcium chloride usage",
+            "label":"Emission score calculation",
             "used":[
-                "https://cacl2.com/provenance/CalculationEntity/entity1",
-                "https://cacl2.com/provenance/CalculationEntity/ObservationResult/obsresult1"
+                "https://fleetvehicles.com/provenance/CalculationEntity/entity2",
+                "https://fleetvehicles.com/provenance/cf"
             ]
         },
         {
-            "@id":"https://cacl2.com/provenance/CalculationEntity/entity2",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "https://w3id.org/peco#EmissionCalculationEntity",
-                "http://qudt.org/schema/qudt/Quantity"
-            ],
-            "label":"Calculated calcium chloride usage",
-            "qudt_value":{
-                "@value":0.815,
-                "@type":"xsd:float"
-            },
-            "unit":"https://www.wikidata.org/entity/Q41803",
-            "hasQuantityKind":"https://www.wikidata.org/wiki/Q11423",
-            "wasGeneratedBy":[
-                "https://cacl2.com/provenance/calculation-activity2"
-            ]
-        },
-        {
-            "@id":"https://cacl2.com/provenance/emission-score-calculation",
-            "@type":[
-                "http://www.w3.org/2002/07/owl#NamedIndividual",
-                "http://www.w3.org/ns/prov#Activity",
-                "https://w3id.org/peco#EmissionCalculationActivity"
-            ],
-            "wasAssociatedWith":[
-                "https://doi.org/10.1016/j.jclepro.2023.140181"
-            ],
-            "label":"Apply calcium chloride conversion factor",
-            "used":[
-                "https://cacl2.com/provenance/CalculationEntity/entity2",
-                "https://cacl2.com/provenance/cf"
-            ]
-        },
-        {
-            "@id":"https://cacl2.com/provenance/CalculationEntity/emission-score",
+            "@id":"https://fleetvehicles.com/provenance/CalculationEntity/emission-score",
             "@type":[
                 "http://www.w3.org/2002/07/owl#NamedIndividual",
                 "https://w3id.org/peco#EmissionCalculationEntity",
@@ -374,29 +303,42 @@
             ],
             "label":"Emission Score",
             "qudt_value":{
-                "@value":0.7254,
+                "@value":315.075,
                 "@type":"xsd:float"
             },
-            "unit":"https://www.wikidata.org/entity/Q41803",
-            "hasQuantityKind":"http://www.wikidata.org/entity/Q1933140",
+            "unit":"https://www.wikidata.org/entity/Q11570",
+            "hasQuantityKind":"https://www.wikidata.org/entity/Q1933140",
             "wasGeneratedBy":[
-                "https://cacl2.com/provenance/emission-score-calculation"
+                "https://fleetvehicles.com/provenance/emission-score-calculation"
             ]
         },
         {
-            "@id":"https://cacl2.com/provenance/cf",
+            "@id":"https://www.wikidata.org/entity/Q11570",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual"
+            ]
+        },
+        {
+            "@id":"https://www.wikidata.org/entity/Q1933140",
+            "@type":[
+                "http://www.w3.org/2002/07/owl#NamedIndividual",
+                "http://qudt.org/schema/qudt/QuantityKind"
+            ]
+        },
+        {
+            "@id":"https://fleetvehicles.com/provenance/cf",
             "@type":"ecfo:EmissionConversionFactor",
-            "publisher":"https://legacy.winnipeg.ca/finance/findata/matmgt/documents/2012/682-2012/682-2012_appendix_h-wstp_south_end_plant_process_selection_report/appendix%207.pdf",
-            "value":"0.89",
-            "hasApplicableLocation":"https://www.wikidata.org/wiki/Q16",
-            "hasEmissionSource":"https://www.wikidata.org/wiki/Q2356542",
-            "hasEmissionTarget":"http://www.wikidata.org/entity/Q1933140",
-            "hasScope":"ecfo:Scope2",
-            "hasSourceUnit":"https://www.wikidata.org/entity/Q41803",
+            "publisher":"https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2022",
+            "value":"2.5206",
+            "hasApplicableLocation":"https://www.wikidata.org/wiki/Q145",
+            "hasEmissionSource":"https://www.wikidata.org/entity/Q70666231",
+            "hasEmissionTarget":"https://www.wikidata.org/entity/Q1933140",
+            "hasScope":"ecfo:Scope1",
+            "hasSourceUnit":"https://www.wikidata.org/entity/Q11582",
             "hasTag":[
-
+                "https://www.wikidata.org/entity/Q70666231"
             ],
-            "hasTargetUnit":"https://www.wikidata.org/entity/Q41803"
+            "hasTargetUnit":"https://www.wikidata.org/entity/Q11570"
         }
     ]
 }
